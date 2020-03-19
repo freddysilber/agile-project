@@ -20,4 +20,4 @@ project_names = [
 
 project_names.each do |name|
 	Project.create(name: name)
-end
+end 
