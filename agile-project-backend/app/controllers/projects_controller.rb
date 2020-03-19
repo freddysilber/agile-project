@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
 	def index
 		projects = Project.all
-		render json: projects, include: [:name]
+		options = {}
+		render json: ProjectSerializer.new(projects,options).serializable_hash
 	end
 end
