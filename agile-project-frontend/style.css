@@ -8,9 +8,33 @@
 	background: lightgray;
 }
 #projectNav {
+	overflow: scroll;
 	padding: .25rem;
 	border: 1px solid black;
-	width: 15%;
-	height: 100%;
 	border-radius: 1rem;
+	width: 15%;
+	height: 100vh;
+	margin: .2rem;
+}
+#app {
+	display: flex;
+}
+#kanban {
+	display: flex;
+	border: 1px solid black;
+	border-radius: 1rem;
+	padding: .25rem;
+	width: 100%;
+}
+.column {
+	justify-content: space-evenly;
+	width: 20rem;
+	height: 100vh;
+	margin: 0rem .2rem 0rem .2rem;
+	border: 1px solid black;
+	text-align: center;
+}
+.columnTitle {
+	background: lightgray;
+	margin: 0;
 }

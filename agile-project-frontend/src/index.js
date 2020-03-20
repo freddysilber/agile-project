@@ -1,9 +1,14 @@
 const ROOT_URL = 'http://localhost:3000'
 const PROJECTS = `${ROOT_URL}/projects`
-let APP // <div class="app"></div>
+const statuses = [
+	'Backlog',
+	'Open',
+	'In Progress',
+	'Closed'
+]
 
 window.addEventListener("DOMContentLoaded", () => {
-	APP = document.getElementById('app')
+	drawBoard()
 	const projectNav = document.getElementById('projectNav')
 	getProjects().then(data => {
 		const projects = createProjectCards(data.data)
@@ -25,6 +30,18 @@ const getProjects = async () => {
 
 const createProjectCards = (data) => {
 	return data.map(project => new Project(project.id, project.attributes.name))
+}
+
+const drawBoard = () => {
+	const kanban = document.getElementById('kanban')
+	statuses.forEach(status => {
+		const column = `
+			<div class="column">
+				<h3 class="columnTitle"><em><u>${status}</u></em></h3>
+			</div>
+		`
+		kanban.insertAdjacentHTML('beforeend', column)
+	})
 }
 
 class Project {
