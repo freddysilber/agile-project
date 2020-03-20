@@ -60,6 +60,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.1)
+    coderay (1.1.2)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
     erubi (1.9.0)
@@ -92,6 +93,11 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    pry (0.9.6)
+      coderay (>= 0.9.8)
+      method_source (>= 0.6.5)
+      ruby_parser (>= 2.0.5)
+      slop (~> 2.1.0)
     puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.2.2)
@@ -130,6 +136,10 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     ruby_dep (1.5.0)
+    ruby_parser (3.14.2)
+      sexp_processor (~> 4.9)
+    sexp_processor (4.14.1)
+    slop (2.1.0)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -160,6 +170,7 @@ DEPENDENCIES
   faker
   fast_jsonapi
   listen (>= 3.0.5, < 3.2)
+  pry
   puma (~> 4.1)
   rack-cors
   rails (~> 6.0.2, >= 6.0.2.1)
@@ -172,4 +183,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   2.0.2
+   2.1.4
