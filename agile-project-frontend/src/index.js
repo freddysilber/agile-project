@@ -16,7 +16,9 @@ window.addEventListener("DOMContentLoaded", () => {
 			console.log('<ERROR>', error)
 		})
 	// }
-	console.log(projectData)
+	console.log(projectData())
+	getProjects().then(data => console.log(data))
+
 })
 
 // getProjects = () => {
@@ -31,5 +33,12 @@ const projectData = () => {
 	return fetch(`${PROJECTS_INDEX}/test`)
 		.then(response => response.json())
 		.then(parsed = console.log(parsed))
-
 }
+
+async function getProjects() {
+	let response = await fetch(`${PROJECTS_INDEX}/test`)
+	let data = await response.json()
+	return data
+}
+
+getProjects().then(data => console.log(data))
