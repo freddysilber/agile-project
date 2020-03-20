@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	})
 })
 
-async function getProjects() {
+const getProjects = async () => {
 	return await (await fetch(PROJECTS)).json()
 }
 
