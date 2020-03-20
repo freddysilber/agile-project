@@ -1,15 +1,16 @@
-body {
-	background: black;
-}
-h1 {
-	color: red;
-}
-div {
-	background: #EEE;
-}
 .projectCard {
-	background: lightgray;
+	border: 1px solid lightgray;
 	border-radius: .25rem;
 	margin: .5rem;
-	padding: .5rem;
+	padding: .25rem;
+}
+.projectCard:hover {
+	background: lightgray;
+}
+#projectNav {
+	padding: .25rem;
+	border: 1px solid black;
+	width: 15%;
+	height: 100%;
+	border-radius: 1rem;
 }

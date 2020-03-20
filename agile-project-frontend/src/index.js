@@ -4,16 +4,17 @@ let APP // <div class="app"></div>
 
 window.addEventListener("DOMContentLoaded", () => {
 	APP = document.getElementById('app')
+	const projectNav = document.getElementById('projectNav')
 	getProjects().then(data => {
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
 			const cardItem = `
 				<div class="projectCard">
-					<p>${project.id}</p>
-					<p>${project.name}</p>
+					<p>project id - ${project.id}</p>
+					<p>project name - ${project.name}</p>
 				</div>
 			`
-			APP.insertAdjacentHTML('beforeend', cardItem)
+			projectNav.insertAdjacentHTML('beforeend', cardItem)
 		})
 	})
 })
