@@ -7,3 +7,9 @@ h1 {
 div {
 	background: #EEE;
 }
+.projectCard {
+	background: lightgray;
+	border-radius: .25rem;
+	margin: .5rem;
+	padding: .5rem;
+}
