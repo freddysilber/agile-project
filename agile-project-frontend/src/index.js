@@ -1,6 +1,6 @@
 const ROOT_URL = 'http://localhost:3000'
-const PROJECTS_INDEX = `${ROOT_URL}/projects`
-let APP
+const PROJECTS = `${ROOT_URL}/projects`
+let APP // <div class="app"></div>
 
 window.addEventListener("DOMContentLoaded", () => {
 	APP = document.getElementById('app')
@@ -16,22 +16,14 @@ window.addEventListener("DOMContentLoaded", () => {
 			APP.insertAdjacentHTML('beforeend', cardItem)
 		})
 	})
-
 })
 
 async function getProjects() {
-	let response = await fetch(PROJECTS_INDEX)
-	let data = await response.json()
-	return data
+	return await (await fetch(PROJECTS)).json()
 }
 
 const createProjectCards = (data) => {
-	let projects = []
-	data.forEach(project => {
-		const p = new Project(project.id, project.attributes.name)
-		projects.push(p)
-	})
-	return projects
+	return data.map(project => new Project(project.id, project.attributes.name))
 }
 
 class Project {
