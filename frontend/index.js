@@ -14,3 +14,5 @@ const bruh = window.addEventListener('DOMContentLoaded', (event) => {
 console.log('APP', app)
 console.log(event)
 console.log('5. ASS')
+
+// FiraCode-Retina 
