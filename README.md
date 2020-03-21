@@ -1,6 +1,8 @@
 # agile-project
 Javascript + Rails API agile project powered by Flatirons School
 
+# Ideas
+
 ## Feature Requests:
 1. make columns sortable
 2. make cards within columns sortable
@@ -26,3 +28,6 @@ Javascript + Rails API agile project powered by Flatirons School
 ## Kanban Cards
 1. onhover, show drag icon on mouse rather than arrow or hand mouse icon (bettter ui/ ux)
 2. onlick, show edit modal for records/ card items
+
+## Column Headers
+1. column header names ie. 'Backlog, open in progress' cann be clickable links and 	   will view all tasks by that column (reports, filters)

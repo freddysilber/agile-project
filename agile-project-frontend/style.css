@@ -53,13 +53,13 @@ button {
 	background-color: rgba(0,0,0,0.4);
   }
   .modal-content {
-	background-color: #fefefe;
+	background-color: #FEFEFE;
 	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
 	width: 80%;
   }
-
   .modalButton {
 	  float: right;;
+  }
+  .modalBody {
+	  background: lightblue;
   }

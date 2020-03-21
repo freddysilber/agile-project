@@ -13,7 +13,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	const projectNav = document.getElementById('projectNav')
 	drawBoard()
 	getProjects().then(data => {
-		const projects = createProjectCards(data.data) // could be refactored into something other than data.data...
+		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
 			const cardItem = `
 				<div id="${project.id}" class="projectCard" draggable="true" ondragstart="drag(event)">
@@ -36,6 +36,7 @@ const createProjectCards = (data) => {
 }
 
 const drawBoard = () => {
+	clearBoard()
 	const kanban = document.getElementById('kanban')
 	STATUSES.forEach(status => {
 		const column = `
@@ -47,6 +48,12 @@ const drawBoard = () => {
 	})
 }
 
+const clearBoard = () => {
+	const columns = document.querySelectorAll('.column')
+	columns.forEach(column => {
+		column.remove()
+	})
+}
 class Project {
 	constructor(id, name, status) {
 		this.id = id
@@ -74,14 +81,22 @@ const drop = (event) => {
 	column.appendChild(document.getElementById(data))
 }
 
+const addColumn = () => {
+	STATUSES.push('-- NEW COL --')
+	drawBoard()
+}
+
 const handleCreateProject = (event) => {
-	console.log('lets create a project', event)
 	const app = document.getElementById('app')
 	const modal = `
 		<div id="myModal" class="modal">
 			<div class="modal-content">
 				<button class="modalButton" name="closeModal" onclick="handleCloseModal()">Close</button>
-				<p>Some text in the Modal..</p>
+				<center><p>New Project</p>
+					<div class="modalBody">
+						<h1>HERE IS THE BODY OF THE MODAL</h1>
+					</div>
+				</center>
 			</div>
 		</div>
 	`
