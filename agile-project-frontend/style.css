@@ -63,3 +63,7 @@ button {
   .modalBody {
 	  background: lightblue;
   }
+
+  .newProjectButton {
+	  float: right;
+  }

@@ -86,7 +86,7 @@ const addColumn = () => {
 	drawBoard()
 }
 
-const handleCreateProject = (event) => {
+const handleNewProject = (event) => {
 	const app = document.getElementById('app')
 	const modal = `
 		<div id="myModal" class="modal">
@@ -95,7 +95,9 @@ const handleCreateProject = (event) => {
 				<center><p>New Project</p>
 					<div class="modalBody">
 						<h1>HERE IS THE BODY OF THE MODAL</h1>
+						<input type="text" placeholder="Project Name"  name="projectName"></input>
 					</div>
+					<div class="footer">te</div>
 				</center>
 			</div>
 		</div>
@@ -106,3 +108,43 @@ const handleCreateProject = (event) => {
 const handleCloseModal = () => {
 	document.getElementById('myModal').remove()
 }
+
+const reLoad = () => {
+	window.location.reload()
+}
+// // EVENT DELEGATION:
+// trainersContainer.addEventListener('click', (e) => {
+// 	if (e.target.dataset.action === "add"){
+// 	  const trainerId = e.target.dataset.trainerId;
+// 	  const trainerUl = e.target.parentNode.querySelector('ul');
+// 	  if (trainerUl.children.length < 6){
+// 		fetch(POKEMONS_URL, {
+// 		  method: 'POST',
+// 		  headers: {
+// 			'Content-Type': 'application/json'
+// 		  },
+// 		  body: JSON.stringify({
+// 			"trainer_id": trainerId
+// 		  })
+// 		})
+// 		.then(resp => resp.json())
+// 		.then(newPokemon => {
+// 		  const pokeHTML = `
+// 		  <li>${newPokemon.nickname} (${newPokemon.species}) 
+// 			<button class="release" data-pokemon-id=${newPokemon.id}>
+// 			  Release
+// 			</button>
+// 		  </li>`;
+
+// 		  trainerUl.insertAdjacentHTML('beforeend', pokeHTML);
+// 		})
+// 	  }
+// 	};
+// 	if (e.target.classList.contains("release")){
+// 	  const pokemonId = e.target.dataset.pokemonId;
+// 	  fetch(`${POKEMONS_URL}/${pokemonId}`, {
+// 		method: 'DELETE'
+// 	  })
+// 	  .then(resp => resp.json())
+// 	  .then(() => e.target.parentNode.remove());
+// 	}

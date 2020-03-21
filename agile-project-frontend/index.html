@@ -10,11 +10,13 @@
 
 <body>
 	<script src="./src/index.js"></script>
+	<button class="newProjectButton" name="newProject" onclick="handleNewProject()">New Project</button>
+	<button class="reload" style="float:right" name="reLoad" onclick="reLoad()">|reLoad|</button>
+	<br>
 	<div id="app">
 		<div id="projectNav"></div>
 		<div id="kanban"></div>
 		<button name="addColumn" onclick="addColumn(event)">
-			<!-- <button name="addColumn" onclick="handleCreateProject(event)"> -->
 			<h3><em><u>Add Column</u></em></h3>
 		</button>
 	</div>
