@@ -22,3 +22,6 @@ Javascript + Rails API agile project powered by Flatirons School
 3. field for type
 4. field for time entry (hours)
 5. CRUD
+
+## Kanban Cards
+1. onhover, show drag icon on mouse rather than arrow or hand mouse icon (bettter ui/ ux)

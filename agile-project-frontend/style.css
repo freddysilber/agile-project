@@ -13,13 +13,11 @@
 }
 #kanban {
 	display: flex;
-	border-radius: 1rem;
 	padding: .25rem;
 	width: 100%;
 	overflow-x: scroll;
 }
 .column {
-	justify-content: space-evenly;
 	width: 20rem;
 	height: 100vh;
 	margin: 0rem .2rem 0rem .2rem;

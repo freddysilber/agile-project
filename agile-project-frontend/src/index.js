@@ -1,21 +1,19 @@
+//  Project > Task > Status
+//  Project > Tasks < Status
 const ROOT_URL = 'http://localhost:3000'
 const PROJECTS = `${ROOT_URL}/projects`
-const statuses = [
+const STATUSES = [
 	'Backlog',
 	'Open',
 	'In Progress',
-	'Closed',
-	'Test Col',
-	'Test Col',
-	'Test Col',
-	'Test Col'
+	'Closed'
 ]
 
 window.addEventListener("DOMContentLoaded", () => {
 	drawBoard()
 	const projectNav = document.getElementById('projectNav')
 	getProjects().then(data => {
-		const projects = createProjectCards(data.data)
+		const projects = createProjectCards(data.data) // could be refactored into something other than data.data...
 		projects.forEach(project => {
 			const cardItem = `
 				<div id="${project.id}" class="projectCard" draggable="true" ondragstart="drag(event)">
@@ -39,7 +37,7 @@ const createProjectCards = (data) => {
 
 const drawBoard = () => {
 	const kanban = document.getElementById('kanban')
-	statuses.forEach(status => {
+	STATUSES.forEach(status => {
 		const column = `
 			<div id="${status}" class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
 				<h3 class="columnTitle"><em><u>${status}</u></em></h3>
@@ -73,7 +71,6 @@ const drop = (event) => {
 		column = column.parentElement
 	}
 	const columnId = column.id // COLUMN_ID (from status)
-	console.log(columnId)
 	column.appendChild(document.getElementById(data))
 }
 
