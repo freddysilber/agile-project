@@ -1,3 +1,6 @@
+button {
+	background: lightcoral;
+}
 #projectNav {
 	overflow: scroll;
 	padding: .25rem;

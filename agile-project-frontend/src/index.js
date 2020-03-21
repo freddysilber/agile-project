@@ -10,8 +10,9 @@ const STATUSES = [
 ]
 
 window.addEventListener("DOMContentLoaded", () => {
-	drawBoard()
 	const projectNav = document.getElementById('projectNav')
+	// GHETTO RENDERING LIFECYCLE
+	drawBoard()
 	getProjects().then(data => {
 		const projects = createProjectCards(data.data) // could be refactored into something other than data.data...
 		projects.forEach(project => {
@@ -76,5 +77,4 @@ const drop = (event) => {
 
 const handleCreateProject = () => {
 	console.log('lets create a project')
-	window.open(`${ROOT_URL}/createProject.html`)
 }
