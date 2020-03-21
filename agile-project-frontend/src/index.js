@@ -11,7 +11,6 @@ const STATUSES = [
 
 window.addEventListener("DOMContentLoaded", () => {
 	const projectNav = document.getElementById('projectNav')
-	// GHETTO RENDERING LIFECYCLE
 	drawBoard()
 	getProjects().then(data => {
 		const projects = createProjectCards(data.data) // could be refactored into something other than data.data...
@@ -75,6 +74,20 @@ const drop = (event) => {
 	column.appendChild(document.getElementById(data))
 }
 
-const handleCreateProject = () => {
-	console.log('lets create a project')
+const handleCreateProject = (event) => {
+	console.log('lets create a project', event)
+	const app = document.getElementById('app')
+	const modal = `
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<button class="modalButton" name="closeModal" onclick="handleCloseModal()">Close</button>
+				<p>Some text in the Modal..</p>
+			</div>
+		</div>
+	`
+	app.insertAdjacentHTML('beforebegin', modal)
+}
+
+const handleCloseModal = () => {
+	document.getElementById('myModal').remove()
 }
