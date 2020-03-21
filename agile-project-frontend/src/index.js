@@ -63,6 +63,12 @@ const drag = (event) => {
 
 const drop = (event) => {
 	event.preventDefault()
-	var data = event.dataTransfer.getData("text")
-	event.target.appendChild(document.getElementById(data))
+	let column = event.srcElement
+	const data = event.dataTransfer.getData("text")
+	console.log('project id', data)
+	while (!column.classList.contains('column')) {
+		column = column.parentElement
+	}
+	console.log('column (status)', column.id)
+	column.appendChild(document.getElementById(data))
 }
