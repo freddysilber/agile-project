@@ -73,5 +73,11 @@ const drop = (event) => {
 		column = column.parentElement
 	}
 	const columnId = column.id // COLUMN_ID (from status)
+	console.log(columnId)
 	column.appendChild(document.getElementById(data))
+}
+
+const handleCreateProject = () => {
+	console.log('lets create a project')
+	window.open(`${ROOT_URL}/createProject.html`)
 }
