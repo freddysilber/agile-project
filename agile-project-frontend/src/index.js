@@ -4,7 +4,11 @@ const statuses = [
 	'Backlog',
 	'Open',
 	'In Progress',
-	'Closed'
+	'Closed',
+	'Test Col',
+	'Test Col',
+	'Test Col',
+	'Test Col'
 ]
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -64,11 +68,10 @@ const drag = (event) => {
 const drop = (event) => {
 	event.preventDefault()
 	let column = event.srcElement
-	const data = event.dataTransfer.getData("text")
-	console.log('project id', data)
+	const data = event.dataTransfer.getData("text") // PROJECT_ID
 	while (!column.classList.contains('column')) {
 		column = column.parentElement
 	}
-	console.log('column (status)', column.id)
+	const columnId = column.id // COLUMN_ID (from status)
 	column.appendChild(document.getElementById(data))
 }
