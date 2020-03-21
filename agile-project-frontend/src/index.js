@@ -11,11 +11,10 @@ window.addEventListener("DOMContentLoaded", () => {
 	drawBoard()
 	const projectNav = document.getElementById('projectNav')
 	getProjects().then(data => {
-		console.log(data)
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
 			const cardItem = `
-				<div class="projectCard">
+				<div id="${project.id}" class="projectCard" draggable="true" ondragstart="drag(event)">
 					<p>project id - ${project.id}</p>
 					<p>project name - ${project.name}</p>
 					<p>project status - ${project.status}</p>
@@ -31,14 +30,14 @@ const getProjects = async () => {
 }
 
 const createProjectCards = (data) => {
-	return data.map(project => new Project(project.id, project.attributes.name))
+	return data.map(project => new Project(project.id, project.attributes.name, project.attributes.status))
 }
 
 const drawBoard = () => {
 	const kanban = document.getElementById('kanban')
 	statuses.forEach(status => {
 		const column = `
-			<div class="column">
+			<div id="${status}" class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
 				<h3 class="columnTitle"><em><u>${status}</u></em></h3>
 			</div>
 		`
@@ -47,8 +46,23 @@ const drawBoard = () => {
 }
 
 class Project {
-	constructor(id, name) {
+	constructor(id, name, status) {
 		this.id = id
 		this.name = name
+		this.status = status
 	}
+}
+
+const allowDrop = (event) => {
+	event.preventDefault()
+}
+
+const drag = (event) => {
+	event.dataTransfer.setData("text", event.target.id)
+}
+
+const drop = (event) => {
+	event.preventDefault()
+	var data = event.dataTransfer.getData("text")
+	event.target.appendChild(document.getElementById(data))
 }

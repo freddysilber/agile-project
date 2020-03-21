@@ -11,13 +11,17 @@ require 'securerandom'
 Project.delete_all 
 
 project_names = [
-	'Project1',
-	'while(1 < 2)',
-	'4x4=12',
-	'Another Project Name',
-	'POWER MODE'
+	'Project 1.0.0',
+	'while (1 < 2)',
+	'4 x 4 = 12',
+	'Another (lame) Project Name',
+	'POWER MODE',
+	'Freddy\'s Project',
+	'[Iterm2] setup',
+	'p10k build',
+	'<coding>'
 ]
 
 project_names.each do |name|
-	Project.create(name: name)
+	Project.create(name: name, status: 'backlog')
 end 
