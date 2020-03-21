@@ -11,12 +11,14 @@ window.addEventListener("DOMContentLoaded", () => {
 	drawBoard()
 	const projectNav = document.getElementById('projectNav')
 	getProjects().then(data => {
+		console.log(data)
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
 			const cardItem = `
 				<div class="projectCard">
 					<p>project id - ${project.id}</p>
 					<p>project name - ${project.name}</p>
+					<p>project status - ${project.status}</p>
 				</div>
 			`
 			projectNav.insertAdjacentHTML('beforeend', cardItem)

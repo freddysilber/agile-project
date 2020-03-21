@@ -1,18 +1,8 @@
-.projectCard {
-	border: 1px solid lightgray;
-	border-radius: .25rem;
-	margin: .5rem;
-	padding: .25rem;
-}
-.projectCard:hover {
-	background: lightgray;
-}
 #projectNav {
 	overflow: scroll;
 	padding: .25rem;
 	border: 1px solid black;
 	border-radius: 1rem;
-	width: 15%;
 	height: 100vh;
 	margin: .2rem;
 }
@@ -21,14 +11,13 @@
 }
 #kanban {
 	display: flex;
-	border: 1px solid black;
 	border-radius: 1rem;
 	padding: .25rem;
 	width: 100%;
 }
 .column {
 	justify-content: space-evenly;
-	width: 20rem;
+	width: 20%;
 	height: 100vh;
 	margin: 0rem .2rem 0rem .2rem;
 	border: 1px solid black;
@@ -37,4 +26,15 @@
 .columnTitle {
 	background: lightgray;
 	margin: 0;
+}
+.projectCard {
+	border: 1px solid lightgray;
+	border-radius: .25rem;
+	margin: .5rem;
+	padding: .25rem;
+	transition: .4s;
+}
+.projectCard:hover {
+	background: lightgray;
+	transition: .4s;
 }
