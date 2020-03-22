@@ -150,10 +150,6 @@ const handleCloseModal = () => {
 	document.getElementById('myModal').remove()
 }
 
-const reLoad = () => {
-	window.location.reload()
-}
-
 updateProjectStatus = (projectId, status) => {
 	console.log(projectId, status)
 	fetch(PROJECTS, {
