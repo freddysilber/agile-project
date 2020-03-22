@@ -1,5 +1,8 @@
 button {
-	background: lightcoral;
+	border-radius: .2rem;
+}
+button:focus {
+	outline: none;
 }
 #projectNav {
 	overflow: scroll;
@@ -51,19 +54,20 @@ button {
 	overflow: auto;
 	background-color: rgb(0,0,0);
 	background-color: rgba(0,0,0,0.4);
-  }
-  .modal-content {
+}
+.modal-content {
 	background-color: #FEFEFE;
+	border-radius: 10px;
+	padding: .25rem;
 	margin: auto;
 	width: 80%;
-  }
-  .modalButton {
-	  float: right;;
-  }
-  .modalBody {
-	  background: lightblue;
-  }
-
-  .newProjectButton {
-	  float: right;
-  }
+}
+.modalButton {
+	float: right;;
+}
+.modalBody {
+	background: lightblue;
+}
+.newProjectButton {
+	float: right;
+}

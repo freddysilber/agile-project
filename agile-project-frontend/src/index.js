@@ -79,6 +79,8 @@ const drop = (event) => {
 	}
 	const columnId = column.id // COLUMN_ID (from status)
 	column.appendChild(document.getElementById(data))
+
+	updateProjectStatus(data, columnId)
 }
 
 const addColumn = () => {
@@ -94,15 +96,35 @@ const handleNewProject = (event) => {
 				<button class="modalButton" name="closeModal" onclick="handleCloseModal()">Close</button>
 				<center><p>New Project</p>
 					<div class="modalBody">
-						<h1>HERE IS THE BODY OF THE MODAL</h1>
-						<input type="text" placeholder="Project Name"  name="projectName"></input>
+						<input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input>
 					</div>
-					<div class="footer">te</div>
+					<div class="footer">HERE IS THE FOOTER OF THE MODAL</div>
+					<button onclick="submitProject()">Create Project</button>
 				</center>
 			</div>
 		</div>
 	`
 	app.insertAdjacentHTML('beforebegin', modal)
+}
+
+const submitProject = () => {
+	const projectName = document.getElementById('projectName').value
+	console.log(projectName)
+	fetch(PROJECTS, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			'name': projectName
+		})
+	})
+		.then(response => response.json())
+		.then(newProject => {
+			console.log('newproject', newProject)
+		})
+		.catch(error => console.error(error))
+	handleCloseModal()
 }
 
 const handleCloseModal = () => {
@@ -112,7 +134,25 @@ const handleCloseModal = () => {
 const reLoad = () => {
 	window.location.reload()
 }
-// // EVENT DELEGATION:
+
+updateProjectStatus = (projectId, status) => {
+	console.log(projectId, status)
+	fetch(PROJECTS, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			'project_id': projectId
+		})
+	})
+		.then(response => response.json())
+		.then(project => {
+			console.log(project)
+		})
+		.catch(error => { console.error(error) })
+}
+
 // trainersContainer.addEventListener('click', (e) => {
 // 	if (e.target.dataset.action === "add"){
 // 	  const trainerId = e.target.dataset.trainerId;
