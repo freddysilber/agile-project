@@ -1,10 +1,18 @@
+// import * as Config from './config'
 const ROOT_URL = 'http://localhost:3000'
 const PROJECTS = `${ROOT_URL}/projects`
-const STATUSES = [
-	'Backlog',
+const TASKS = `${ROOT_URL}/tasks`
+const PROJECT_STATUSES = [
+	'Not Started',
+	'In Progress',
+	'Late',
+	'Complete'
+]
+const TASK_STATUSES = [
 	'Open',
 	'In Progress',
-	'Closed'
+	'Complete',
+	'On Hold'
 ]
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -15,18 +23,24 @@ window.addEventListener("DOMContentLoaded", () => {
 		projects.forEach(project => {
 			const cardItem = `
 				<div id="${project.id}" class="projectCard" draggable="true" ondragstart="drag(event)">
-					<p>project id - ${project.id}</p>
-					<p>project name - ${project.name}</p>
-					<p>project status - ${project.status}</p>
+					<p><b>Name:</b> <u>${project.name}</u></p>
+					<p><b>Status:</b> ${project.status}</p>
 				</div>
 			`
 			projectNav.insertAdjacentHTML('beforeend', cardItem)
 		})
 	})
+	getTasks().then(data => {
+		console.log(data)
+	})
 })
 
 const getProjects = async () => {
 	return await (await fetch(PROJECTS)).json()
+}
+
+const getTasks = async () => {
+	return await (await fetch(TASKS)).json()
 }
 
 const createProjectCards = (data) => {
@@ -36,7 +50,7 @@ const createProjectCards = (data) => {
 const drawBoard = () => {
 	clearBoard()
 	const kanban = document.getElementById('kanban')
-	STATUSES.forEach(status => {
+	TASK_STATUSES.forEach(status => {
 		const column = `
 			<div id="${status}" class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
 				<h3 class="columnTitle"><em><u>${status}</u></em></h3>
@@ -57,6 +71,13 @@ class Project {
 		this.id = id
 		this.name = name
 		this.status = status
+	}
+}
+
+class Task {
+	constructor(id, name) {
+		this.id = id
+		this.name = name
 	}
 }
 
@@ -82,7 +103,7 @@ const drop = (event) => {
 }
 
 const addColumn = () => {
-	STATUSES.push('-- NEW COL --')
+	PROJECT_STATUSES.push('-- NEW COL --')
 	drawBoard()
 }
 
@@ -107,7 +128,6 @@ const handleNewProject = () => {
 
 const submitProject = () => {
 	const projectName = document.getElementById('projectName').value
-	console.log(projectName)
 	fetch(PROJECTS, {
 		method: 'POST',
 		headers: {
@@ -115,7 +135,7 @@ const submitProject = () => {
 		},
 		body: JSON.stringify({
 			'name': projectName,
-			'status': 'Backlog'
+			'status': PROJECT_STATUSES[0]
 		})
 	})
 		.then(response => response.json())
@@ -146,39 +166,12 @@ updateProjectStatus = (projectId, status) => {
 		})
 	})
 		.then(response => response.json())
-		.then(project => {
-			console.log(project)
-		})
+		// .then(project => {
+		// 	console.log(project)
+		// })
 		.catch(error => { console.error(error) })
 }
 
-// trainersContainer.addEventListener('click', (e) => {
-// 	if (e.target.dataset.action === "add"){
-// 	  const trainerId = e.target.dataset.trainerId;
-// 	  const trainerUl = e.target.parentNode.querySelector('ul');
-// 	  if (trainerUl.children.length < 6){
-// 		fetch(POKEMONS_URL, {
-// 		  method: 'POST',
-// 		  headers: {
-// 			'Content-Type': 'application/json'
-// 		  },
-// 		  body: JSON.stringify({
-// 			"trainer_id": trainerId
-// 		  })
-// 		})
-// 		.then(resp => resp.json())
-// 		.then(newPokemon => {
-// 		  const pokeHTML = `
-// 		  <li>${newPokemon.nickname} (${newPokemon.species}) 
-// 			<button class="release" data-pokemon-id=${newPokemon.id}>
-// 			  Release
-// 			</button>
-// 		  </li>`;
-
-// 		  trainerUl.insertAdjacentHTML('beforeend', pokeHTML);
-// 		})
-// 	  }
-// 	};
 // 	if (e.target.classList.contains("release")){
 // 	  const pokemonId = e.target.dataset.pokemonId;
 // 	  fetch(`${POKEMONS_URL}/${pokemonId}`, {
