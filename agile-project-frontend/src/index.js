@@ -1,4 +1,3 @@
-// import * as Config from './config'
 const ROOT_URL = 'http://localhost:3000'
 const PROJECTS = `${ROOT_URL}/projects`
 const TASKS = `${ROOT_URL}/tasks`
@@ -15,7 +14,7 @@ const TASK_STATUSES = [
 	'On Hold'
 ]
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener('DOMContentLoaded', () => {
 	const projectNav = document.getElementById('projectNav')
 	drawBoard()
 	getProjects().then(data => {
@@ -23,6 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		projects.forEach(project => {
 			const cardItem = `
 				<div id="${project.id}" class="projectCard" draggable="true" ondragstart="drag(event)">
+					<button class="deleteButton" onclick="handleDeleteProject(event)">X</button>
 					<p><b>Name:</b> <u>${project.name}</u></p>
 					<p><b>Status:</b> ${project.status}</p>
 				</div>
@@ -39,13 +39,13 @@ const getProjects = async () => {
 	return await (await fetch(PROJECTS)).json()
 }
 
+const createProjectCards = (data) => {
+	return data.map(project => new Project(project.id, project.attributes.name, project.attributes.status))
+}
 const getTasks = async () => {
 	return await (await fetch(TASKS)).json()
 }
 
-const createProjectCards = (data) => {
-	return data.map(project => new Project(project.id, project.attributes.name, project.attributes.status))
-}
 
 const drawBoard = () => {
 	clearBoard()
@@ -86,13 +86,13 @@ const allowDrop = (event) => {
 }
 
 const drag = (event) => {
-	event.dataTransfer.setData("text", event.target.id)
+	event.dataTransfer.setData('text', event.target.id)
 }
 
 const drop = (event) => {
 	event.preventDefault()
 	let column = event.srcElement
-	const data = event.dataTransfer.getData("text") // PROJECT_ID
+	const data = event.dataTransfer.getData('text') // PROJECT_ID
 	while (!column.classList.contains('column')) {
 		column = column.parentElement
 	}
@@ -103,7 +103,7 @@ const drop = (event) => {
 }
 
 const addColumn = () => {
-	PROJECT_STATUSES.push('-- NEW COL --')
+	TASK_STATUSES.push('-- NEW COL --')
 	drawBoard()
 }
 
@@ -111,12 +111,11 @@ const handleNewProject = () => {
 	const masterContainer = document.getElementById('masterContainer')
 	const modal = `
 		<div id="myModal" class="modal">
-			<div class="modal-content">
+			<div class="modalContent">
 				<button class="modalButton" name="closeModal" onclick="handleCloseModal()">Close</button>
 				<center>
-					<p>New Project</p>
 					<div class="modalBody">
-						<p>Project Name: <input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input></p>
+						<p>Name: <input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input></p>
 					</div>
 					<button onclick="submitProject()">Create Project</button>
 				</center>
@@ -166,6 +165,17 @@ updateProjectStatus = (projectId, status) => {
 		// 	console.log(project)
 		// })
 		.catch(error => { console.error(error) })
+}
+
+const handleDeleteProject = (event) => {
+	console.log(event)
+	const projectId = event.target.parentNode.id
+	console.log(projectId)
+	fetch(`${PROJECTS}/${projectId}`, {
+		method: 'DELETE'
+	})
+		.then(response => response.json())
+		.then(() => event.target.parentNode.remove());
 }
 
 // 	if (e.target.classList.contains("release")){
