@@ -9,6 +9,7 @@ require 'faker'
 require 'securerandom'
 
 Project.delete_all 
+Task.delete_all
 
 project_names = [
 	'Project 1.0.0',
@@ -22,6 +23,18 @@ project_names = [
 	'<coding>'
 ]
 
+task_names = [
+	'Task 1',
+	'Task 2',
+	'Task 3',
+	'Task 4',
+	'Task 5'
+]
+
 project_names.each do |name|
-	Project.create(name: name, status: 'backlog')
+	Project.create(name: name, status: 'Backlog')
 end 
+
+task_names.each do |name|
+	Task.create(name: name)
+end
