@@ -114,13 +114,14 @@ const submitProject = () => {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
-			'name': projectName
+			'name': projectName,
+			'status': 'Backlog'
 		})
 	})
 		.then(response => response.json())
-		.then(newProject => {
-			console.log('newproject', newProject)
-		})
+		// .then(newProject => {
+		// 	console.log('newproject', newProject)
+		// })
 		.catch(error => console.error(error))
 	handleCloseModal()
 }
