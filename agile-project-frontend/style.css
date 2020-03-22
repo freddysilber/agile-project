@@ -62,7 +62,7 @@ button:focus {
 .modal-content {
 	background-color: #FEFEFE;
 	border-radius: 10px;
-	padding: .25rem;
+	padding: 1rem;
 	margin: auto;
 	width: 80%;
 }
@@ -70,5 +70,5 @@ button:focus {
 	float: right;;
 }
 .modalBody {
-	background: lightblue;
+	padding: 1rem;
 }

@@ -92,11 +92,11 @@ const handleNewProject = () => {
 		<div id="myModal" class="modal">
 			<div class="modal-content">
 				<button class="modalButton" name="closeModal" onclick="handleCloseModal()">Close</button>
-				<center><p>New Project</p>
+				<center>
+					<p>New Project</p>
 					<div class="modalBody">
-						<input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input>
+						<p>Project Name: <input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input></p>
 					</div>
-					<div class="footer">HERE IS THE FOOTER OF THE MODAL</div>
 					<button onclick="submitProject()">Create Project</button>
 				</center>
 			</div>
