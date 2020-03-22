@@ -27,8 +27,12 @@ button:focus {
 	width: 20rem;
 	height: 100vh;
 	margin: 0rem .2rem 0rem .2rem;
-	border: 1px solid black;
 	text-align: center;
+	transition: .5s;
+}
+.column:hover {
+	background: lightgray;
+	transition: .5s;
 }
 .columnTitle {
 	background: lightgray;
@@ -39,11 +43,11 @@ button:focus {
 	border-radius: .25rem;
 	margin: .5rem;
 	padding: .25rem;
-	transition: .4s;
+	transition: .5s;
 }
 .projectCard:hover {
 	background: lightgray;
-	transition: .4s;
+	transition: .5s;
 }
 .modal {
 	position: fixed;
@@ -67,7 +71,4 @@ button:focus {
 }
 .modalBody {
 	background: lightblue;
-}
-.newProjectButton {
-	float: right;
 }

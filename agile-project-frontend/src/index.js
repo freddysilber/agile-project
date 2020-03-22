@@ -1,5 +1,3 @@
-//  Project > Task > Status
-//  Project > Tasks < Status
 const ROOT_URL = 'http://localhost:3000'
 const PROJECTS = `${ROOT_URL}/projects`
 const STATUSES = [
@@ -88,8 +86,8 @@ const addColumn = () => {
 	drawBoard()
 }
 
-const handleNewProject = (event) => {
-	const app = document.getElementById('app')
+const handleNewProject = () => {
+	const masterContainer = document.getElementById('masterContainer')
 	const modal = `
 		<div id="myModal" class="modal">
 			<div class="modal-content">
@@ -104,7 +102,7 @@ const handleNewProject = (event) => {
 			</div>
 		</div>
 	`
-	app.insertAdjacentHTML('beforebegin', modal)
+	masterContainer.insertAdjacentHTML('beforebegin', modal)
 }
 
 const submitProject = () => {
