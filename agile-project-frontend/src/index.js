@@ -18,6 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const projectNav = document.getElementById('projectNav')
 	drawBoard()
 	getProjects().then(data => {
+		console.log(data)
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
 			const cardItem = `
@@ -98,7 +99,8 @@ const drop = (event) => {
 	}
 	const columnId = column.id // COLUMN_ID (from status)
 	column.appendChild(document.getElementById(data))
-
+	// Need to update project status
+	console.log('UPDATE STATUS??')
 	updateProjectStatus(data, columnId)
 }
 
@@ -126,6 +128,8 @@ const handleNewProject = () => {
 }
 
 const submitProject = () => {
+	const projctNav = document.getElementById('projectNav')
+
 	const projectName = document.getElementById('projectName').value
 	fetch(PROJECTS, {
 		method: 'POST',
@@ -138,10 +142,17 @@ const submitProject = () => {
 		})
 	})
 		.then(response => response.json())
-		// .then(newProject => {
-		// 	console.log('newproject', newProject)
-		// })
-		.catch(error => console.error(error))
+		.then(project => {
+			const newProjectCard = `
+				<div id="${project.data.id}" class="projectCard" draggable="true" ondragstart="drag(event)">
+					<button class="deleteButton" onclick="handleDeleteProject(event)">X</button>
+					<p><b>Name:</b> <u>${project.data.attributes.name}</u></p>
+					<p><b>Status:</b> ${project.data.attributes.status}</p>
+				</div>
+			`
+			projctNav.insertAdjacentHTML('beforeend', newProjectCard)
+		})
+		.catch(error => console.error('There was an err while creating ur project', error))
 	handleCloseModal()
 }
 
@@ -161,28 +172,17 @@ updateProjectStatus = (projectId, status) => {
 		})
 	})
 		.then(response => response.json())
-		// .then(project => {
-		// 	console.log(project)
-		// })
+		.then(project => {
+			console.log(project)
+		})
 		.catch(error => { console.error(error) })
 }
 
 const handleDeleteProject = (event) => {
-	console.log(event)
 	const projectId = event.target.parentNode.id
-	console.log(projectId)
 	fetch(`${PROJECTS}/${projectId}`, {
 		method: 'DELETE'
 	})
 		.then(response => response.json())
 		.then(() => event.target.parentNode.remove());
 }
-
-// 	if (e.target.classList.contains("release")){
-// 	  const pokemonId = e.target.dataset.pokemonId;
-// 	  fetch(`${POKEMONS_URL}/${pokemonId}`, {
-// 		method: 'DELETE'
-// 	  })
-// 	  .then(resp => resp.json())
-// 	  .then(() => e.target.parentNode.remove());
-// 	}

@@ -1,5 +1,5 @@
 class ProjectSerializer 
 	include FastJsonapi::ObjectSerializer
-	attributes :name, :status
 	has_many :tasks, :dependent => :destroy
+	attributes :name, :status, :tasks
 end

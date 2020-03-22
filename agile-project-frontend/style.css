@@ -85,9 +85,4 @@ input:focus, button:focus {
 }
 .deleteButton {
 	float: right;
-	color: lightpink;
-}
-.deleteButton:hover {
-	background: lightpink;
-	color: red;
 }

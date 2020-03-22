@@ -5,12 +5,17 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
-		Project.create(name: params[:name], status: params[:status])
-		render json: ProjectSerializer.new(projects)
+		project = Project.create(
+			name: params[:name], 
+			status: params[:status]
+		)
+		render json: ProjectSerializer.new(project)
 	end
 
 	def destroy
-		project = Project.find(params[:id])
+		project = Project.find(
+			params[:id]
+		)
 		unless Project.nil?
 			project.destroy
 			render json: ProjectSerializer.new(projects)
@@ -18,14 +23,4 @@ class ProjectsController < ApplicationController
 			render json: {error: 'Project no Found!'}
 		end
 	end
-
-	# def destroy
-	# 	pokemon = Pokemon.find(params[:id])
-	# 	unless pokemon.nil?
-	# 	  pokemon.destroy
-	# 	  render json: pokemon
-	# 	else
-	# 	  render json: { error: "Pokemon not Found!" }, status: 404
-	# 	end
-	#   end
 end
