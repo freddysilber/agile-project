@@ -46,8 +46,8 @@ const handleSelectProject = (event) => {
 			projectTasks.forEach(task => {
 				const taskCard = `
 					<div id="${task.id}" class="taskCard" draggable="true" ondragstart="drag(event)">
-						<p>${task.name}</p>
-						<p>${task.status}</p>
+						<p><b>Name:</b> <u>${task.name}</u></p>
+						<p><b>Status:</b> <u>${task.status}</u></p>
 					</div>
 				`
 				document.querySelector(`.column[id="${task.status}"]`).insertAdjacentHTML('beforeend', taskCard)
