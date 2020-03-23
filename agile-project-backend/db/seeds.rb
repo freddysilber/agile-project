@@ -40,7 +40,7 @@ project_names.each do |name|
 	task_names.each do |task_name|
 		Task.create(
 			name: task_name, 
-			status: 'Open'
+			status: 'Open',
 			project_id: project.id
 		)
 	end
