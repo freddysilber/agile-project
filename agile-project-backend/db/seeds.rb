@@ -20,7 +20,7 @@ project_names = [
 	'Freddy\'s Project',
 	'[Iterm2] setup',
 	'p10k build',
-	'<coding>'
+	'PROJECT'
 ]
 
 task_names = [
@@ -39,7 +39,7 @@ project_names.each do |name|
 
 	task_names.each do |task_name|
 		Task.create(
-			name: task_name, 
+			name: task_name + ' ' + name, 
 			status: 'Open',
 			project_id: project.id
 		)
