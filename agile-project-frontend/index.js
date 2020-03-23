@@ -20,13 +20,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	getProjects().then(data => {
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
-			const cardItem = `
-				<div id="${project.id}" class="projectCard" onclick="handleSelectProject(event)">
-					<button class="deleteButton" onclick="handleDeleteProject(event)">X</button>
-					<p><b>Name:</b> <u>${project.name}</u></p>
-					<p><b>Status:</b> ${project.status}</p>
-				</div>
-			`
+			const cardItem = createProjectCard(project.id, project.name, project.status)
 			projectNav.insertAdjacentHTML('beforeend', cardItem)
 		})
 	})
@@ -43,12 +37,7 @@ const handleSelectProject = (event) => {
 		.then(data => {
 			const projectTasks = data.data.attributes.tasks
 			projectTasks.forEach(task => {
-				const taskCard = `
-					<div id="${task.id}" class="taskCard" draggable="true" ondragstart="drag(event)">
-						<p><b>Name:</b> <u>${task.name}</u></p>
-						<p><b>Status:</b> <u>${task.status}</u></p>
-					</div>
-				`
+				const taskCard = createTaskCard(task.id, task.name, task.status)
 				document.querySelector(`.column[id="${task.status}"]`).insertAdjacentHTML('beforeend', taskCard)
 			})
 		})
@@ -81,20 +70,6 @@ const clearBoard = () => {
 	columns.forEach(column => {
 		column.remove()
 	})
-}
-class Project {
-	constructor(id, name, status) {
-		this.id = id
-		this.name = name
-		this.status = status
-	}
-}
-
-class Task {
-	constructor(id, name) {
-		this.id = id
-		this.name = name
-	}
 }
 
 const allowDrop = (event) => {
@@ -155,13 +130,7 @@ const submitProject = () => {
 	})
 		.then(response => response.json())
 		.then(project => {
-			const newProjectCard = `
-				<div id="${project.data.id}" class="projectCard" draggable="true" ondragstart="drag(event)">
-					<button class="deleteButton" onclick="handleDeleteProject(event)">X</button>
-					<p><b>Name:</b> <u>${project.data.attributes.name}</u></p>
-					<p><b>Status:</b> ${project.data.attributes.status}</p>
-				</div>
-			`
+			const newProjectCard = createProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
 			projctNav.insertAdjacentHTML('beforeend', newProjectCard)
 		})
 		.catch(error => console.error('There was an err while creating ur project', error))
@@ -185,6 +154,10 @@ updateTaskStatus = (taskId, status) => {
 		.then(response => response.json())
 		.then(task => {
 			console.log('TASK!', task)
+			const newTaskCard = createTaskCard(task.data.id, task.data.attributes.name, task.data.attributes.status)
+			console.log(newTaskCard)
+			const taskCard = document.querySelector(`.taskCard[id="${task.data.id}"]`)
+			console.log(taskCard)
 		})
 		.catch(error => console.error('there was an err trying to delete this project!', error))
 }
@@ -196,4 +169,39 @@ const handleDeleteProject = (event) => {
 	})
 		.then(response => response.json())
 		.then(() => event.target.parentNode.remove());
+}
+
+const createTaskCard = (id, name, status) => {
+	return `
+		<div id="${id}" class="taskCard" draggable="true" ondragstart="drag(event)">
+			<p><b>Name:</b> <u>${name}</u></p>
+			<p><b>Status:</b> <u>${status}</u></p>
+		</div>
+	`
+}
+
+const createProjectCard = (id, name, status) => {
+	return `
+		<div id="${id}" class="projectCard" onclick="handleSelectProject(event)">
+			<button class="deleteButton" onclick="handleDeleteProject(event)">X</button>
+			<p><b>Name:</b> <u>${name}</u></p>
+			<p><b>Status:</b> ${status}</p>
+		</div>
+	`
+}
+
+class Project {
+	constructor(id, name, status) {
+		this.id = id
+		this.name = name
+		this.status = status
+	}
+}
+
+class Task {
+	constructor(id, name, status) {
+		this.id = id
+		this.name = name
+		this.status = status
+	}
 }

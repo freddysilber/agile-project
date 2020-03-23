@@ -16,14 +16,14 @@
 3. CRUD
 
 ## Task Obj
-1. field for status
-2. field for name
+<!-- 1. field for status -->
+<!-- 2. field for name -->
 3. field for type
 4. field for time entry (hours)
 5. CRUD
 
 ## Kanban Cards
-1. onhover, show drag icon on mouse rather than arrow or hand mouse icon (bettter ui/ ux)
+<!-- 1. onhover, show drag icon on mouse rather than arrow or hand mouse icon (bettter ui/ ux) -->
 2. onlick, show edit modal for records/ card items
 
 ## Column Headers
