@@ -32,8 +32,16 @@ task_names = [
 ]
 
 project_names.each do |name|
-	project = Project.create(name: name, status: 'Not Started')
+	project = Project.create(
+		name: name, 
+		status: 'Not Started'
+	)
+
 	task_names.each do |task_name|
-		Task.create(name: task_name, project_id: project.id)
+		Task.create(
+			name: task_name, 
+			status: 'Open'
+			project_id: project.id
+		)
 	end
 end
