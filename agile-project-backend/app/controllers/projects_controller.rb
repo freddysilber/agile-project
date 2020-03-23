@@ -24,6 +24,13 @@ class ProjectsController < ApplicationController
 		end
 	end
 
+	def show
+		project = Project.find(
+			params[:id]
+		)
+		render json: ProjectSerializer.new(project)
+	end
+
 	def destroy
 		project = Project.find(
 			params[:id]

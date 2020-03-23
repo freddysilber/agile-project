@@ -28,6 +28,3 @@
 
 ## Column Headers
 1. column header names ie. 'Backlog, open in progress' cann be clickable links and 	   will view all tasks by that column (reports, filters)
-
-## Render
-1. get data from db

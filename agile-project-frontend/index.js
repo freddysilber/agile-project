@@ -22,7 +22,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
 			const cardItem = `
-				<div id="${project.id}" class="projectCard" draggable="true" ondragstart="drag(event)">
+				<!--<div id="${project.id}" class="projectCard" draggable="true" ondragstart="drag(event)">-->
+				<div id="${project.id}" class="projectCard" onclick="handleSelectProject(event)">
 					<button class="deleteButton" onclick="handleDeleteProject(event)">X</button>
 					<p><b>Name:</b> <u>${project.name}</u></p>
 					<p><b>Status:</b> ${project.status}</p>
@@ -31,8 +32,20 @@ window.addEventListener('DOMContentLoaded', () => {
 			projectNav.insertAdjacentHTML('beforeend', cardItem)
 		})
 	})
-	getTasks()
 })
+
+const handleSelectProject = (event) => {
+	let projectCard = event.target
+	while (!projectCard.classList.contains('projectCard')) {
+		projectCard = projectCard.parentElement
+	}
+	console.log(projectCard.id)
+	fetch(`${PROJECTS}/${projectCard.id}`)
+		.then(response => response.json())
+		.then(data => {
+			console.log(data)
+		})
+}
 
 const getProjects = async () => {
 	return await (await fetch(PROJECTS)).json()
@@ -41,10 +54,6 @@ const getProjects = async () => {
 const createProjectCards = (data) => {
 	return data.map(project => new Project(project.id, project.attributes.name, project.attributes.status))
 }
-const getTasks = async () => {
-	return await (await fetch(TASKS)).json()
-}
-
 
 const drawBoard = () => {
 	clearBoard()
