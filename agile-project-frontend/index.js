@@ -18,6 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const projectNav = document.getElementById('projectNav')
 	drawBoard()
 	getProjects().then(data => {
+		console.log('project data', data)
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
 			const cardItem = `
