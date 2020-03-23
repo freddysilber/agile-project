@@ -18,7 +18,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	const projectNav = document.getElementById('projectNav')
 	drawBoard()
 	getProjects().then(data => {
-		console.log('project data', data)
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
 			const cardItem = `
@@ -143,7 +142,6 @@ const handleNewProject = () => {
 
 const submitProject = () => {
 	const projctNav = document.getElementById('projectNav')
-
 	const projectName = document.getElementById('projectName').value
 	fetch(PROJECTS, {
 		method: 'POST',
