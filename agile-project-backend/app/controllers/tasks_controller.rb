@@ -15,4 +15,16 @@ class TasksController < ApplicationController
 			render json: {error: 'Mad error homie!'}
 		end
 	end
+
+	def destroy
+		task = Task.find(
+			params[:id]
+		)
+		unless task.nil?
+			task.destroy
+			render json: TaskSerializer.new(task)
+		else
+			render json: {error: 'Mad error homie!'}
+		end
+	end
 end

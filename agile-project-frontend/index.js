@@ -163,6 +163,7 @@ updateTaskStatus = (taskId, status) => {
 }
 
 const handleDeleteProject = (event) => {
+	event.stopPropagation()
 	const projectId = event.target.parentNode.id
 	fetch(`${PROJECTS}/${projectId}`, {
 		method: 'DELETE'
@@ -171,9 +172,20 @@ const handleDeleteProject = (event) => {
 		.then(() => event.target.parentNode.remove());
 }
 
+const handleDeleteTask = (event) => {
+	event.stopPropagation()
+	const taskId = event.target.parentNode.id
+	fetch(`${TASKS}/${taskId}`, {
+		method: 'DELETE'
+	})
+		.then(response => response.json())
+		.then(() => event.target.parentNode.remove())
+}
+
 const createTaskCard = (id, name, status) => {
 	return `
 		<div id="${id}" class="taskCard" draggable="true" ondragstart="drag(event)">
+			<button class="deleteButton" onclick="handleDeleteTask(event)">X</button>
 			<p><b>Name:</b> <u>${name}</u></p>
 			<p><b>Status:</b> <u>${status}</u></p>
 		</div>

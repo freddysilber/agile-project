@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
 		project = Project.find(
 			params[:id]
 		)
-		unless Project.nil?
+		unless project.nil?
 			project.destroy
 			render json: ProjectSerializer.new(project)
 		else
