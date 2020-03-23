@@ -18,7 +18,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	const projectNav = document.getElementById('projectNav')
 	drawBoard()
 	getProjects().then(data => {
-		console.log(data)
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
 			const cardItem = `
@@ -31,9 +30,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			projectNav.insertAdjacentHTML('beforeend', cardItem)
 		})
 	})
-	getTasks().then(data => {
-		console.log(data)
-	})
+	getTasks()
 })
 
 const getProjects = async () => {
@@ -99,7 +96,6 @@ const drop = (event) => {
 	}
 	const columnId = column.id // COLUMN_ID (from status)
 	column.appendChild(document.getElementById(data))
-	// Need to update project status
 	console.log('UPDATE STATUS??')
 	updateProjectStatus(data, columnId)
 }
@@ -161,21 +157,20 @@ const handleCloseModal = () => {
 }
 
 updateProjectStatus = (projectId, status) => {
-	console.log(projectId, status)
-	fetch(PROJECTS, {
+	fetch(`${PROJECTS}/${projectId}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
-			'project_id': projectId
+			"status": status
 		})
 	})
 		.then(response => response.json())
 		.then(project => {
-			console.log(project)
+			console.log('PROJECT!!', project)
 		})
-		.catch(error => { console.error(error) })
+		.catch(error => { console.error('there was an err trying to delete this project!', error) })
 }
 
 const handleDeleteProject = (event) => {
