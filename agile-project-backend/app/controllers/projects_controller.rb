@@ -18,7 +18,6 @@ class ProjectsController < ApplicationController
 		)
 		unless project.nil?
 			project.update(project_params)
-			# project.update(status: params[:status])
 			render json: ProjectSerializer.new(project)
 		else
 			render json: {error: 'Mad error homie!'}

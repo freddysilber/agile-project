@@ -228,8 +228,13 @@ const handleUpdateTask = (event) => {
 	})
 		.then(response => response.json())
 		.then(task => {
-			console.log(task)
+			const newTaskCard = createTaskCard(task.data.id, task.data.attributes.name, task.data.attributes.status)
+			const taskCard = document.querySelector(`.taskCard[id="${task.data.id}"]`)
+			taskCard.remove()
+			const column = document.querySelector(`.column[id="${task.data.attributes.status}"]`)
+			column.insertAdjacentHTML('beforeend', newTaskCard)
 		})
+		.catch(error => console.error('There was an err while updating this task', error))
 }
 
 const createTaskCard = (id, name, status) => {
