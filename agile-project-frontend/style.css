@@ -56,8 +56,13 @@ input:focus, button:focus {
 	padding: .25rem;
 	transition: .5s;
 }
-.projectCard:hover, .taskCard:hover {
+.projectCard:hover {
 	background: lightgray;
+	transition: .5s;
+}
+.taskCard:hover {
+	cursor: move;
+	background: white;
 	transition: .5s;
 }
 .modal {
@@ -85,4 +90,7 @@ input:focus, button:focus {
 }
 .deleteButton {
 	float: right;
+}
+.deleteButton:hover {
+	background: lightpink;
 }
