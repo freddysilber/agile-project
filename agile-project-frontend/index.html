@@ -11,13 +11,13 @@
 
 <body>
 	<div id="masterContainer">
-		<nav>
-			<button name="newProject" onclick="handleNewProject()">New Project</button>
-			<button name="addColumn" onclick="addColumn(event)">Add Column</button>
-		</nav>
-
 		<div id="app">
-			<div id="projectNav"></div>
+			<div id="projectNav">
+				<div class="projectNavTitleContainer">
+					<h2 class="projectNavTitle"><em><u>Projects</u></em></h2>
+					<button name="newProject" onclick="handleNewProject()">+</button>
+				</div>
+			</div>
 			<div id="kanban"></div>
 		</div>
 	</div>

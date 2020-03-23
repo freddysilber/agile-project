@@ -4,8 +4,6 @@
 1. make columns sortable
 2. make cards within columns sortable
 3. color coding by columns and task type
-4. click a button to create a new project
-	a. launch a modal or some kind of UI where users can create a project and a number of tasks at the same time
 5. CRUD on all objects
 6. admin settings/ user settings
 7. can change theme?

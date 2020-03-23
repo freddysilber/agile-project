@@ -102,7 +102,7 @@ const handleNewProject = () => {
 	const modal = `
 		<div id="myModal" class="modal">
 			<div class="modalContent">
-				<button class="modalButton" name="closeModal" onclick="handleCloseModal()">Close</button>
+				<button class="modalButton" name="closeModal" onclick="handleCloseModal()">X</button>
 				<center>
 					<div class="modalBody">
 						<p>Name: <input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input></p>

@@ -94,3 +94,10 @@ input:focus, button:focus {
 .deleteButton:hover {
 	background: lightpink;
 }
+.projectNavTitle {
+	margin: .2rem;
+}
+.projectNavTitleContainer {
+	display: flex;
+	justify-content: center;
+}
