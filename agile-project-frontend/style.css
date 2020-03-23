@@ -21,7 +21,7 @@ input:focus, button:focus {
 #projectNav {
 	overflow: scroll;
 	border: 1px solid black;
-	width: 20rem;
+	width: 25rem;
 	height: 100vh;
 	margin: .2rem;
 	text-align: center;
@@ -34,6 +34,10 @@ input:focus, button:focus {
 	padding: .25rem;
 	width: 100%;
 	overflow-x: scroll;
+}
+#recordView {
+	border-left: 1px solid black;
+	width: 25rem;
 }
 .column {
 	width: 20rem;
@@ -52,9 +56,10 @@ input:focus, button:focus {
 }
 .projectCard, .taskCard {
 	text-align: left;
-	border: 1px solid lightgray;
+	border: 1px solid darkgray;
 	padding: .25rem;
 	transition: .5s;
+	margin: 2px 0px 2px 0px;
 }
 .projectCard:hover {
 	background: lightgray;

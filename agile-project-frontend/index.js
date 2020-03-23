@@ -182,9 +182,59 @@ const handleDeleteTask = (event) => {
 		.then(() => event.target.parentNode.remove())
 }
 
+const handleSelectTask = (event) => {
+	const recordView = document.getElementById('recordView')
+	while (recordView.firstChild) {
+		recordView.firstChild.remove()
+	}
+	let taskCard = event.target
+	while (!taskCard.classList.contains('taskCard')) {
+		taskCard = taskCard.parentNode
+	}
+	const taskId = taskCard.id
+	fetch(`${TASKS}/${taskId}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+		.then(response => response.json())
+		.then(task => {
+			console.log(task)
+			const taskEdit = `
+				<div>
+					<p>Edit Task</p>
+					<center>
+						<input id="${task.data.id}" type="text" value="${task.data.attributes.name}">
+						<button onclick="handleUpdateTask(event)">Update</button>
+					</center>
+				</div>
+			`
+			recordView.insertAdjacentHTML('beforeend', taskEdit)
+		})
+}
+
+const handleUpdateTask = (event) => {
+	const taskId = event.target.previousElementSibling.id
+	const newTaskName = event.target.previousElementSibling.value
+	fetch(`${TASKS}/${taskId}`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			"name": newTaskName
+		})
+	})
+		.then(response => response.json())
+		.then(task => {
+			console.log(task)
+		})
+}
+
 const createTaskCard = (id, name, status) => {
 	return `
-		<div id="${id}" class="taskCard" draggable="true" ondragstart="drag(event)">
+		<div id="${id}" class="taskCard" draggable="true" ondragstart="drag(event)" onclick="handleSelectTask(event)">
 			<button class="deleteButton" onclick="handleDeleteTask(event)">X</button>
 			<p><b>Name:</b> <u>${name}</u></p>
 			<p><b>Status:</b> <u>${status}</u></p>

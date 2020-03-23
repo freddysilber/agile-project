@@ -17,7 +17,8 @@ class ProjectsController < ApplicationController
 			params[:id]
 		)
 		unless project.nil?
-			project.update(status: params[:status])
+			project.update(project_params)
+			# project.update(status: params[:status])
 			render json: ProjectSerializer.new(project)
 		else
 			render json: {error: 'Mad error homie!'}
@@ -41,5 +42,14 @@ class ProjectsController < ApplicationController
 		else
 			render json: {error: 'Mad error homie!'}
 		end
+	end
+
+	private
+
+	def project_params
+		params.require(:project).permit(
+			:name,
+			:status
+		)
 	end
 end

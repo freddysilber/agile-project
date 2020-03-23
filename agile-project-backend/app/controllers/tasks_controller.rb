@@ -9,11 +9,18 @@ class TasksController < ApplicationController
 			params[:id]
 		)
 		unless task.nil?
-			task.update(status: params[:status])
+			task.update(task_params)
 			render json: TaskSerializer.new(task)
 		else
 			render json: {error: 'Mad error homie!'}
 		end
+	end
+
+	def show
+		task = Task.find(
+			params[:id]
+		)
+		render json: TaskSerializer.new(task)
 	end
 
 	def destroy
@@ -26,5 +33,14 @@ class TasksController < ApplicationController
 		else
 			render json: {error: 'Mad error homie!'}
 		end
+	end
+
+	private 
+	
+	def task_params
+		params.require(:task).permit(
+			:name,
+			:status
+		)
 	end
 end
