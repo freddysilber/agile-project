@@ -114,7 +114,7 @@ const drop = (event) => {
 		column = column.parentElement
 	}
 	const columnId = column.id // COLUMN_ID (from status)
-	column.appendChild(document.getElementById(data))
+	column.appendChild(document.querySelector(`.taskCard[id="${data}"]`))
 	updateTaskStatus(data, columnId)
 }
 
