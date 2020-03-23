@@ -16,11 +16,11 @@ class ProjectsController < ApplicationController
 		project = Project.find(
 			params[:id]
 		)
-		unless Project.nil?
+		unless project.nil?
 			project.update(status: params[:status])
 			render json: ProjectSerializer.new(project)
 		else
-			render json: {error: 'No Project frounf!'}
+			render json: {error: 'Mad error homie!'}
 		end
 	end
 
@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
 			project.destroy
 			render json: ProjectSerializer.new(project)
 		else
-			render json: {error: 'Project no Found!'}
+			render json: {error: 'Mad error homie!'}
 		end
 	end
 end

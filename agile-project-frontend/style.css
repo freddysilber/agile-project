@@ -50,13 +50,13 @@ input:focus, button:focus {
 	background: lightgray;
 	margin: 0;
 }
-.projectCard {
+.projectCard, .taskCard {
 	text-align: left;
 	border: 1px solid lightgray;
 	padding: .25rem;
 	transition: .5s;
 }
-.projectCard:hover {
+.projectCard:hover, .taskCard:hover {
 	background: lightgray;
 	transition: .5s;
 }

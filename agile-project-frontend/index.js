@@ -22,7 +22,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
 			const cardItem = `
-				<!--<div id="${project.id}" class="projectCard" draggable="true" ondragstart="drag(event)">-->
 				<div id="${project.id}" class="projectCard" onclick="handleSelectProject(event)">
 					<button class="deleteButton" onclick="handleDeleteProject(event)">X</button>
 					<p><b>Name:</b> <u>${project.name}</u></p>
@@ -35,16 +34,26 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 const handleSelectProject = (event) => {
+	drawBoard()
 	let projectCard = event.target
 	while (!projectCard.classList.contains('projectCard')) {
 		projectCard = projectCard.parentElement
 	}
-	console.log(projectCard.id)
 	fetch(`${PROJECTS}/${projectCard.id}`)
 		.then(response => response.json())
 		.then(data => {
-			console.log(data)
+			const projectTasks = data.data.attributes.tasks
+			projectTasks.forEach(task => {
+				const taskCard = `
+					<div id="${task.id}" class="taskCard" draggable="true" ondragstart="drag(event)">
+						<p>${task.name}</p>
+						<p>${task.status}</p>
+					</div>
+				`
+				document.querySelector(`.column[id="${task.status}"]`).insertAdjacentHTML('beforeend', taskCard)
+			})
 		})
+		.catch(error => console.error('There was an err trying to get ur project', error))
 }
 
 const getProjects = async () => {
@@ -100,14 +109,13 @@ const drag = (event) => {
 const drop = (event) => {
 	event.preventDefault()
 	let column = event.srcElement
-	const data = event.dataTransfer.getData('text') // PROJECT_ID
+	const data = event.dataTransfer.getData('text') // TASK ID
 	while (!column.classList.contains('column')) {
 		column = column.parentElement
 	}
 	const columnId = column.id // COLUMN_ID (from status)
 	column.appendChild(document.getElementById(data))
-	console.log('UPDATE STATUS??')
-	updateProjectStatus(data, columnId)
+	updateTaskStatus(data, columnId)
 }
 
 const addColumn = () => {
@@ -166,8 +174,8 @@ const handleCloseModal = () => {
 	document.getElementById('myModal').remove()
 }
 
-updateProjectStatus = (projectId, status) => {
-	fetch(`${PROJECTS}/${projectId}`, {
+updateTaskStatus = (taskId, status) => {
+	fetch(`${TASKS}/${taskId}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
@@ -177,10 +185,10 @@ updateProjectStatus = (projectId, status) => {
 		})
 	})
 		.then(response => response.json())
-		.then(project => {
-			console.log('PROJECT!!', project)
+		.then(task => {
+			console.log('TASK!', task)
 		})
-		.catch(error => { console.error('there was an err trying to delete this project!', error) })
+		.catch(error => console.error('there was an err trying to delete this project!', error))
 }
 
 const handleDeleteProject = (event) => {
