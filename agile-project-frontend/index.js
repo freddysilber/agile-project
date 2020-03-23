@@ -153,11 +153,11 @@ updateTaskStatus = (taskId, status) => {
 	})
 		.then(response => response.json())
 		.then(task => {
-			console.log('TASK!', task)
 			const newTaskCard = createTaskCard(task.data.id, task.data.attributes.name, task.data.attributes.status)
-			console.log(newTaskCard)
 			const taskCard = document.querySelector(`.taskCard[id="${task.data.id}"]`)
-			console.log(taskCard)
+			taskCard.remove()
+			const column = document.querySelector(`.column[id="${task.data.attributes.status}"]`)
+			column.insertAdjacentHTML('beforeend', newTaskCard)
 		})
 		.catch(error => console.error('there was an err trying to delete this project!', error))
 }
