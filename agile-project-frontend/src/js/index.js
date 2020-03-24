@@ -9,11 +9,15 @@ window.addEventListener('DOMContentLoaded', () => {
 	getProjects().then(data => {
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
-			const cardItem = createProjectCard(project.id, project.name, project.status)
+			const cardItem = ProjectView.getProjectCard(project.id, project.name, project.status)
 			elements.projectNav.insertAdjacentHTML('beforeend', cardItem)
 		})
 	})
 })
+
+const createProjectCards = (data) => {
+	return data.map(project => new Project(project.id, project.attributes.name, project.attributes.status))
+}
 
 window.handleSelectProject = (event) => {
 	drawBoard()
@@ -35,10 +39,6 @@ window.handleSelectProject = (event) => {
 
 const getProjects = async () => {
 	return await (await fetch(projectsUrl)).json()
-}
-
-const createProjectCards = (data) => {
-	return data.map(project => new Project(project.id, project.attributes.name, project.attributes.status))
 }
 
 const drawBoard = () => {
@@ -98,14 +98,14 @@ window.submitProject = () => {
 	})
 		.then(response => response.json())
 		.then(project => {
-			const newProjectCard = createProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
+			const newProjectCard = ProjectView.getProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
 			projctNav.insertAdjacentHTML('beforeend', newProjectCard)
 		})
 		.catch(error => console.error('There was an err while creating ur project', error))
 	handleCloseModal()
 }
 
-const handleCloseModal = () => {
+window.handleCloseModal = () => {
 	document.getElementById('myModal').remove()
 }
 
@@ -193,8 +193,4 @@ window.handleUpdateTask = (event) => {
 
 const createTaskCard = (id, name, status) => {
 	return TaskView.getTaskCard(id, name, status)
-}
-
-const createProjectCard = (id, name, status) => {
-	return ProjectView.getProjectCard(id, name, status)
 }

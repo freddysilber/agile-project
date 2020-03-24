@@ -18,8 +18,7 @@ export const getColumn = (status) => {
 export const newProjectModal = `
 	<div id="myModal" class="modal">
 		<div class="modalContent">
-			<!--<button class="modalButton" name="closeModal" onclick="handleCloseModal()">X</button>-->
-			<i id="closeModal" class="far fa-times-circle modalButton"></i>
+			<i id="closeModal" class="far fa-times-circle modalButton" onclick="handleCloseModal()"></i>
 			<center>
 				<div class="modalBody">
 					<p>Name: <input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input></p>
