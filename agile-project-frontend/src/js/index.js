@@ -1,10 +1,11 @@
 import { Project } from './models/Project'
 import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
+import { elements } from './views/base'
+
 
 window.addEventListener('DOMContentLoaded', () => {
 	console.log('%c Greetings earthling!', 'color: gold; font-size: 2em')
 	const projectNav = document.getElementById('projectNav')
-	console.log(projectNav)
 	drawBoard()
 	getProjects().then(data => {
 		const projects = createProjectCards(data.data)
@@ -86,12 +87,17 @@ const addColumn = () => {
 	drawBoard()
 }
 
+document.querySelector('button[id="createProject"').addEventListener('click', () => {
+	handleNewProject()
+})
+
 const handleNewProject = () => {
 	const masterContainer = document.getElementById('masterContainer')
 	const modal = `
 		<div id="myModal" class="modal">
 			<div class="modalContent">
-				<button class="modalButton" name="closeModal" onclick="handleCloseModal()">X</button>
+				<!--<button class="modalButton" name="closeModal" onclick="handleCloseModal()">X</button>-->
+				<i id="closeModal" class="far fa-times-circle modalButton"></i>
 				<center>
 					<div class="modalBody">
 						<p>Name: <input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input></p>
@@ -102,6 +108,7 @@ const handleNewProject = () => {
 		</div>
 	`
 	masterContainer.insertAdjacentHTML('beforebegin', modal)
+	console.log(elements.closeModalIcon)
 }
 
 const submitProject = () => {
