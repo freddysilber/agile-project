@@ -163,7 +163,9 @@ updateTaskStatus = (taskId, status) => {
 }
 
 const handleDeleteProject = (event) => {
+	console.log(event)
 	event.stopPropagation()
+	console.log(event)
 	const projectId = event.target.parentNode.id
 	fetch(`${PROJECTS}/${projectId}`, {
 		method: 'DELETE'
