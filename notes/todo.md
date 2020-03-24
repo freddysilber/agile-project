@@ -12,17 +12,23 @@
 1. add field for type
 2. field for entered hours??
 3. CRUD
-
+	<!-- a. C -->
+	<!-- b. R -->
+	c. U
+	<!-- d. D -->
 ## Task Obj
 <!-- 1. field for status -->
 <!-- 2. field for name -->
-3. field for type
+3. field for type??
 4. field for time entry (hours)
 5. CRUD
-
+	a. C
+	<!-- b. R -->
+	<!-- c. U -->
+	<!-- d. D -->
 ## Kanban Cards
 <!-- 1. onhover, show drag icon on mouse rather than arrow or hand mouse icon (bettter ui/ ux) -->
-2. onlick, show edit modal for records/ card items
+<!-- 2. onlick, show edit modal for records/ card items -->
 
 ## Column Headers
 1. column header names ie. 'Backlog, open in progress' cann be clickable links and 	   will view all tasks by that column (reports, filters)
