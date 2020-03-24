@@ -1,18 +1,21 @@
-const ROOT_URL = 'http://localhost:3000'
-const PROJECTS = `${ROOT_URL}/projects`
-const TASKS = `${ROOT_URL}/tasks`
-const PROJECT_STATUSES = [
-	'Not Started',
-	'In Progress',
-	'Late',
-	'Complete'
-]
-const TASK_STATUSES = [
-	'Open',
-	'In Progress',
-	'Complete',
-	'On Hold'
-]
+import { Project } from './models/Project'
+import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
+// import { Task } from './models/Task'
+// const ROOT_URL = 'http://localhost:3000'
+// const PROJECTS = `${ROOT_URL}/projects`
+// const TASKS = `${ROOT_URL}/tasks`
+// const PROJECT_STATUSES = [
+// 	'Not Started',
+// 	'In Progress',
+// 	'Late',
+// 	'Complete'
+// ]
+// const TASK_STATUSES = [
+// 	'Open',
+// 	'In Progress',
+// 	'Complete',
+// 	'On Hold'
+// ]
 
 window.addEventListener('DOMContentLoaded', () => {
 	console.log('change')
@@ -27,13 +30,15 @@ window.addEventListener('DOMContentLoaded', () => {
 	})
 })
 
+
+
 const handleSelectProject = (event) => {
 	drawBoard()
 	let projectCard = event.target
 	while (!projectCard.classList.contains('projectCard')) {
 		projectCard = projectCard.parentElement
 	}
-	fetch(`${PROJECTS}/${projectCard.id}`)
+	fetch(`${projectsUrl}/${projectCard.id}`)
 		.then(response => response.json())
 		.then(data => {
 			const projectTasks = data.data.attributes.tasks
@@ -46,7 +51,7 @@ const handleSelectProject = (event) => {
 }
 
 const getProjects = async () => {
-	return await (await fetch(PROJECTS)).json()
+	return await (await fetch(projectsUrl)).json()
 }
 
 const createProjectCards = (data) => {
@@ -56,7 +61,7 @@ const createProjectCards = (data) => {
 const drawBoard = () => {
 	clearBoard()
 	const kanban = document.getElementById('kanban')
-	TASK_STATUSES.forEach(status => {
+	taskStatuses.forEach(status => {
 		const column = `
 			<div id="${status}" class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
 				<h3 class="columnTitle"><em><u>${status}</u></em></h3>
@@ -94,7 +99,7 @@ const drop = (event) => {
 }
 
 const addColumn = () => {
-	TASK_STATUSES.push('-- NEW COL --')
+	taskStatuses.push('-- NEW COL --')
 	drawBoard()
 }
 
@@ -119,14 +124,14 @@ const handleNewProject = () => {
 const submitProject = () => {
 	const projctNav = document.getElementById('projectNav')
 	const projectName = document.getElementById('projectName').value
-	fetch(PROJECTS, {
+	fetch(projectsUrl, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
 			'name': projectName,
-			'status': PROJECT_STATUSES[0]
+			'status': projectStatuses[0]
 		})
 	})
 		.then(response => response.json())
@@ -143,7 +148,7 @@ const handleCloseModal = () => {
 }
 
 const updateTaskStatus = (taskId, status) => {
-	fetch(`${TASKS}/${taskId}`, {
+	fetch(`${tasksUrl}/${taskId}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
@@ -166,7 +171,7 @@ const updateTaskStatus = (taskId, status) => {
 const handleDeleteProject = (event) => {
 	event.stopPropagation()
 	const projectId = event.target.parentNode.id
-	fetch(`${PROJECTS}/${projectId}`, {
+	fetch(`${projectsUrl}/${projectId}`, {
 		method: 'DELETE'
 	})
 		.then(response => response.json())
@@ -176,7 +181,7 @@ const handleDeleteProject = (event) => {
 const handleDeleteTask = (event) => {
 	event.stopPropagation()
 	const taskId = event.target.parentNode.id
-	fetch(`${TASKS}/${taskId}`, {
+	fetch(`${tasksUrl}/${taskId}`, {
 		method: 'DELETE'
 	})
 		.then(response => response.json())
@@ -193,7 +198,7 @@ const handleSelectTask = (event) => {
 		taskCard = taskCard.parentNode
 	}
 	const taskId = taskCard.id
-	fetch(`${TASKS}/${taskId}`, {
+	fetch(`${tasksUrl}/${taskId}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
@@ -218,7 +223,7 @@ const handleSelectTask = (event) => {
 const handleUpdateTask = (event) => {
 	const taskId = event.target.previousElementSibling.id
 	const newTaskName = event.target.previousElementSibling.value
-	fetch(`${TASKS}/${taskId}`, {
+	fetch(`${tasksUrl}/${taskId}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
@@ -256,20 +261,4 @@ const createProjectCard = (id, name, status) => {
 			<p><b>Status:</b> ${status}</p>
 		</div>
 	`
-}
-
-class Project {
-	constructor(id, name, status) {
-		this.id = id
-		this.name = name
-		this.status = status
-	}
-}
-
-class Task {
-	constructor(id, name, status) {
-		this.id = id
-		this.name = name
-		this.status = status
-	}
 }
