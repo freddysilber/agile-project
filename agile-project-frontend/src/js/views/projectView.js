@@ -1,7 +1,3 @@
-export const projectCard = `
-	<div>Sample Project Card</div>
-`
-
 export const getProjectCard = (id, name, status) => {
 	return `
 		<div id="${id}" class="projectCard" onclick="handleSelectProject(event)">

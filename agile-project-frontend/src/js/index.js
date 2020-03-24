@@ -2,6 +2,8 @@ import { Project, deleteProject } from './models/Project'
 import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
 import { elements, newProjectModal, getColumn } from './views/base'
 import * as ProjectView from './views/projectView'
+import * as TaskView from './views/taskView'
+import { Task } from './models/Task'
 
 window.addEventListener('DOMContentLoaded', () => {
 	console.log('%c Greetings earthling!', 'color: gold; font-size: 2em')
@@ -213,13 +215,14 @@ const handleUpdateTask = (event) => {
 }
 
 const createTaskCard = (id, name, status) => {
-	return `
-		<div id="${id}" class="taskCard" draggable="true" ondragstart="drag(event)" onclick="handleSelectTask(event)">
-			<button class="deleteButton" onclick="handleDeleteTask(event)">X</button>
-			<p><b>Name:</b> <u>${name}</u></p>
-			<p><b>Status:</b> <u>${status}</u></p>
-		</div>
-	`
+	return TaskView.getTaskCard(id, name, status)
+	// return `
+	// 	<div id="${id}" class="taskCard" draggable="true" ondragstart="drag(event)" onclick="handleSelectTask(event)">
+	// 		<button class="deleteButton" onclick="handleDeleteTask(event)">X</button>
+	// 		<p><b>Name:</b> <u>${name}</u></p>
+	// 		<p><b>Status:</b> <u>${status}</u></p>
+	// 	</div>
+	// `
 }
 
 const createProjectCard = (id, name, status) => {
