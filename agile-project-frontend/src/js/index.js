@@ -1,4 +1,5 @@
 import { Project, deleteProject } from './models/Project'
+import { deleteTask } from './models/Task'
 import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
 import { elements, newProjectModal, getColumn } from './views/base'
 import * as ProjectView from './views/projectView'
@@ -30,7 +31,7 @@ window.handleSelectProject = (event) => {
 		.then(data => {
 			const projectTasks = data.data.attributes.tasks
 			projectTasks.forEach(task => {
-				const taskCard = createTaskCard(task.id, task.name, task.status)
+				const taskCard = TaskView.getTaskCard(task.id, task.name, task.status)
 				document.querySelector(`.column[id="${task.status}"]`).insertAdjacentHTML('beforeend', taskCard)
 			})
 		})
@@ -121,7 +122,7 @@ const updateTaskStatus = (taskId, status) => {
 	})
 		.then(response => response.json())
 		.then(task => {
-			const newTaskCard = createTaskCard(task.data.id, task.data.attributes.name, task.data.attributes.status)
+			const newTaskCard = TaskView.getTaskCard(task.data.id, task.data.attributes.name, task.data.attributes.status)
 			const taskCard = document.querySelector(`.taskCard[id="${task.data.id}"]`)
 			taskCard.remove()
 			const column = document.querySelector(`.column[id="${task.data.attributes.status}"]`)
@@ -139,11 +140,8 @@ window.handleDeleteProject = (event) => {
 window.handleDeleteTask = (event) => {
 	event.stopPropagation()
 	const taskId = event.target.parentNode.id
-	fetch(`${tasksUrl}/${taskId}`, {
-		method: 'DELETE'
-	})
-		.then(response => response.json())
-		.then(() => event.target.parentNode.remove())
+	deleteTask(taskId)
+	event.target.parentNode.remove()
 }
 
 window.handleSelectTask = (event) => {
@@ -182,15 +180,11 @@ window.handleUpdateTask = (event) => {
 	})
 		.then(response => response.json())
 		.then(task => {
-			const newTaskCard = createTaskCard(task.data.id, task.data.attributes.name, task.data.attributes.status)
+			const newTaskCard = TaskView.getTaskCard(task.data.id, task.data.attributes.name, task.data.attributes.status)
 			const taskCard = document.querySelector(`.taskCard[id="${task.data.id}"]`)
 			taskCard.remove()
 			const column = document.querySelector(`.column[id="${task.data.attributes.status}"]`)
 			column.insertAdjacentHTML('beforeend', newTaskCard)
 		})
 		.catch(error => console.error('There was an err while updating this task', error))
-}
-
-const createTaskCard = (id, name, status) => {
-	return TaskView.getTaskCard(id, name, status)
 }
