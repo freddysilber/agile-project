@@ -15,6 +15,7 @@ const TASK_STATUSES = [
 ]
 
 window.addEventListener('DOMContentLoaded', () => {
+	console.log('change')
 	const projectNav = document.getElementById('projectNav')
 	drawBoard()
 	getProjects().then(data => {
@@ -141,7 +142,7 @@ const handleCloseModal = () => {
 	document.getElementById('myModal').remove()
 }
 
-updateTaskStatus = (taskId, status) => {
+const updateTaskStatus = (taskId, status) => {
 	fetch(`${TASKS}/${taskId}`, {
 		method: 'PATCH',
 		headers: {
