@@ -1,4 +1,4 @@
-import { projectsUrl} from '../config'
+import { projectsUrl } from '../config'
 
 export class Project {
 	constructor(id, name, status) {
@@ -13,4 +13,5 @@ export const deleteProject = (projectId) => {
 		method: 'DELETE'
 	})
 		.then(response => response.json())
+		.catch(error => console.error('There was an error trying to delete your project', error))
 }

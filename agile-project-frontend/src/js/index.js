@@ -3,10 +3,8 @@ import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
 import { elements, newProjectModal, getColumn } from './views/base'
 import * as ProjectView from './views/projectView'
 import * as TaskView from './views/taskView'
-import { Task } from './models/Task'
 
 window.addEventListener('DOMContentLoaded', () => {
-	console.log('%c Greetings earthling!', 'color: gold; font-size: 2em')
 	drawBoard()
 	getProjects().then(data => {
 		const projects = createProjectCards(data.data)
@@ -17,7 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	})
 })
 
-const handleSelectProject = (event) => {
+window.handleSelectProject = (event) => {
 	drawBoard()
 	let projectCard = event.target
 	while (!projectCard.classList.contains('projectCard')) {
@@ -57,15 +55,15 @@ const clearBoard = () => {
 	})
 }
 
-const allowDrop = (event) => {
+window.allowDrop = (event) => {
 	event.preventDefault()
 }
 
-const drag = (event) => {
+window.drag = (event) => {
 	event.dataTransfer.setData('text', event.target.id)
 }
 
-const drop = (event) => {
+window.drop = (event) => {
 	event.preventDefault()
 	let column = event.srcElement
 	const data = event.dataTransfer.getData('text') // TASK ID
@@ -77,10 +75,10 @@ const drop = (event) => {
 	updateTaskStatus(data, columnId)
 }
 
-const addColumn = () => {
-	taskStatuses.push('-- NEW COL --')
-	drawBoard()
-}
+// const addColumn = () => {
+// 	taskStatuses.push('-- NEW COL --')
+// 	drawBoard()
+// }
 
 elements.createProjectIcon.addEventListener('click', () => {
 	handleNewProject()
@@ -90,7 +88,7 @@ const handleNewProject = () => {
 	elements.masterContainer.insertAdjacentHTML('beforebegin', newProjectModal)
 }
 
-const submitProject = () => {
+window.submitProject = () => {
 	const projctNav = document.getElementById('projectNav')
 	const projectName = document.getElementById('projectName').value
 	fetch(projectsUrl, {
@@ -137,19 +135,13 @@ const updateTaskStatus = (taskId, status) => {
 		.catch(error => console.error('there was an err trying to delete this project!', error))
 }
 
-const handleDeleteProject = (event) => {
-	console.log('HANDLE DELETE PROJECT')
+window.handleDeleteProject = (event) => {
 	event.stopPropagation()
 	deleteProject(event.target.parentNode.id)
-	// const projectId = event.target.parentNode.id
-	// fetch(`${projectsUrl}/${projectId}`, {
-	// 	method: 'DELETE'
-	// })
-	// 	.then(response => response.json())
-	// 	.then(() => event.target.parentNode.remove());
+	event.target.parentNode.remove()
 }
 
-const handleDeleteTask = (event) => {
+window.handleDeleteTask = (event) => {
 	event.stopPropagation()
 	const taskId = event.target.parentNode.id
 	fetch(`${tasksUrl}/${taskId}`, {
@@ -159,7 +151,7 @@ const handleDeleteTask = (event) => {
 		.then(() => event.target.parentNode.remove())
 }
 
-const handleSelectTask = (event) => {
+window.handleSelectTask = (event) => {
 	const recordView = document.getElementById('recordView')
 	while (recordView.firstChild) {
 		recordView.firstChild.remove()
@@ -191,7 +183,7 @@ const handleSelectTask = (event) => {
 		})
 }
 
-const handleUpdateTask = (event) => {
+window.handleUpdateTask = (event) => {
 	const taskId = event.target.previousElementSibling.id
 	const newTaskName = event.target.previousElementSibling.value
 	fetch(`${tasksUrl}/${taskId}`, {
@@ -216,13 +208,6 @@ const handleUpdateTask = (event) => {
 
 const createTaskCard = (id, name, status) => {
 	return TaskView.getTaskCard(id, name, status)
-	// return `
-	// 	<div id="${id}" class="taskCard" draggable="true" ondragstart="drag(event)" onclick="handleSelectTask(event)">
-	// 		<button class="deleteButton" onclick="handleDeleteTask(event)">X</button>
-	// 		<p><b>Name:</b> <u>${name}</u></p>
-	// 		<p><b>Status:</b> <u>${status}</u></p>
-	// 	</div>
-	// `
 }
 
 const createProjectCard = (id, name, status) => {
