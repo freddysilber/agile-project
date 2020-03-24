@@ -7,3 +7,15 @@ export const getTaskCard = (id, name, status) => {
 		</div>
 	`
 }
+
+export const getTaskEdit = (id, name) => {
+	return `
+		<div>
+			<p>Edit Task</p>
+			<center>
+				<input id="${id}" type="text" value="${name}">
+				<button onclick="handleUpdateTask(event)">Update</button>
+			</center>
+		</div>
+	`
+}

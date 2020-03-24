@@ -75,11 +75,6 @@ window.drop = (event) => {
 	updateTaskStatus(data, columnId)
 }
 
-// const addColumn = () => {
-// 	taskStatuses.push('-- NEW COL --')
-// 	drawBoard()
-// }
-
 elements.createProjectIcon.addEventListener('click', () => {
 	handleNewProject()
 })
@@ -169,17 +164,7 @@ window.handleSelectTask = (event) => {
 	})
 		.then(response => response.json())
 		.then(task => {
-			console.log(task)
-			const taskEdit = `
-				<div>
-					<p>Edit Task</p>
-					<center>
-						<input id="${task.data.id}" type="text" value="${task.data.attributes.name}">
-						<button onclick="handleUpdateTask(event)">Update</button>
-					</center>
-				</div>
-			`
-			recordView.insertAdjacentHTML('beforeend', taskEdit)
+			recordView.insertAdjacentHTML('beforeend', TaskView.getTaskEdit(task.data.id, task.data.attributes.name))
 		})
 }
 
