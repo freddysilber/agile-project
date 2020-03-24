@@ -1,17 +1,16 @@
-import { Project } from './models/Project'
+import { Project, deleteProject } from './models/Project'
 import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
-import { elements } from './views/base'
-
+import { elements, newProjectModal, getColumn } from './views/base'
+import * as ProjectView from './views/projectView'
 
 window.addEventListener('DOMContentLoaded', () => {
 	console.log('%c Greetings earthling!', 'color: gold; font-size: 2em')
-	const projectNav = document.getElementById('projectNav')
 	drawBoard()
 	getProjects().then(data => {
 		const projects = createProjectCards(data.data)
 		projects.forEach(project => {
 			const cardItem = createProjectCard(project.id, project.name, project.status)
-			projectNav.insertAdjacentHTML('beforeend', cardItem)
+			elements.projectNav.insertAdjacentHTML('beforeend', cardItem)
 		})
 	})
 })
@@ -44,14 +43,8 @@ const createProjectCards = (data) => {
 
 const drawBoard = () => {
 	clearBoard()
-	const kanban = document.getElementById('kanban')
 	taskStatuses.forEach(status => {
-		const column = `
-			<div id="${status}" class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
-				<h3 class="columnTitle"><em><u>${status}</u></em></h3>
-			</div>
-		`
-		kanban.insertAdjacentHTML('beforeend', column)
+		elements.kanban.insertAdjacentHTML('beforeend', getColumn(status))
 	})
 }
 
@@ -87,28 +80,12 @@ const addColumn = () => {
 	drawBoard()
 }
 
-document.querySelector('button[id="createProject"').addEventListener('click', () => {
+elements.createProjectIcon.addEventListener('click', () => {
 	handleNewProject()
 })
 
 const handleNewProject = () => {
-	const masterContainer = document.getElementById('masterContainer')
-	const modal = `
-		<div id="myModal" class="modal">
-			<div class="modalContent">
-				<!--<button class="modalButton" name="closeModal" onclick="handleCloseModal()">X</button>-->
-				<i id="closeModal" class="far fa-times-circle modalButton"></i>
-				<center>
-					<div class="modalBody">
-						<p>Name: <input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input></p>
-					</div>
-					<button onclick="submitProject()">Create Project</button>
-				</center>
-			</div>
-		</div>
-	`
-	masterContainer.insertAdjacentHTML('beforebegin', modal)
-	console.log(elements.closeModalIcon)
+	elements.masterContainer.insertAdjacentHTML('beforebegin', newProjectModal)
 }
 
 const submitProject = () => {
@@ -159,13 +136,15 @@ const updateTaskStatus = (taskId, status) => {
 }
 
 const handleDeleteProject = (event) => {
+	console.log('HANDLE DELETE PROJECT')
 	event.stopPropagation()
-	const projectId = event.target.parentNode.id
-	fetch(`${projectsUrl}/${projectId}`, {
-		method: 'DELETE'
-	})
-		.then(response => response.json())
-		.then(() => event.target.parentNode.remove());
+	deleteProject(event.target.parentNode.id)
+	// const projectId = event.target.parentNode.id
+	// fetch(`${projectsUrl}/${projectId}`, {
+	// 	method: 'DELETE'
+	// })
+	// 	.then(response => response.json())
+	// 	.then(() => event.target.parentNode.remove());
 }
 
 const handleDeleteTask = (event) => {
@@ -244,11 +223,5 @@ const createTaskCard = (id, name, status) => {
 }
 
 const createProjectCard = (id, name, status) => {
-	return `
-		<div id="${id}" class="projectCard" onclick="handleSelectProject(event)">
-			<button class="deleteButton" onclick="handleDeleteProject(event)">X</button>
-			<p><b>Name:</b> <u>${name}</u></p>
-			<p><b>Status:</b> ${status}</p>
-		</div>
-	`
+	return ProjectView.getProjectCard(id, name, status)
 }
