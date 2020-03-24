@@ -92,11 +92,6 @@ const drop = (event) => {
 	updateTaskStatus(data, columnId)
 }
 
-const addColumn = () => {
-	TASK_STATUSES.push('-- NEW COL --')
-	drawBoard()
-}
-
 const handleNewProject = () => {
 	const masterContainer = document.getElementById('masterContainer')
 	const modal = `
