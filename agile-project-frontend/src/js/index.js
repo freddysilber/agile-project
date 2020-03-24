@@ -1,25 +1,10 @@
 import { Project } from './models/Project'
 import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
-// import { Task } from './models/Task'
-// const ROOT_URL = 'http://localhost:3000'
-// const PROJECTS = `${ROOT_URL}/projects`
-// const TASKS = `${ROOT_URL}/tasks`
-// const PROJECT_STATUSES = [
-// 	'Not Started',
-// 	'In Progress',
-// 	'Late',
-// 	'Complete'
-// ]
-// const TASK_STATUSES = [
-// 	'Open',
-// 	'In Progress',
-// 	'Complete',
-// 	'On Hold'
-// ]
 
 window.addEventListener('DOMContentLoaded', () => {
-	console.log('change')
+	console.log('%c Greetings earthling!', 'color: gold; font-size: 2em')
 	const projectNav = document.getElementById('projectNav')
+	console.log(projectNav)
 	drawBoard()
 	getProjects().then(data => {
 		const projects = createProjectCards(data.data)
@@ -29,8 +14,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		})
 	})
 })
-
-
 
 const handleSelectProject = (event) => {
 	drawBoard()
