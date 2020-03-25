@@ -1,5 +1,4 @@
 import { projectsUrl } from '../config'
-// import * as ProjectView from '../views/projectView'
 
 export class Project {
 	constructor(id, name, status) {
