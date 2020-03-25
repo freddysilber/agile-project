@@ -1,3 +1,5 @@
+import { projectsUrl } from "../config"
+
 export const getTaskCard = (id, name, status) => {
 	return `
 		<div id="${id}" class="taskCard" draggable="true" ondragstart="drag(event)" onclick="handleSelectTask(event)">
@@ -18,6 +20,29 @@ export const getTaskEdit = (id, name) => {
 				<input id="${id}" type="text" value="${name}">
 				<button onclick="handleUpdateTask(event)">Update</button>
 			</center>
+		</div>
+	`
+}
+
+export const createTaskModal = (status, projects) => {
+	let projectOptions = []
+	projects.data.forEach(project => {
+		projectOptions.push(`
+			<option id="${project.id}">${project.attributes.name}</option>
+		`)
+	})
+	return `
+		<div id="myModal" class="modal">
+			<div class="modalContent">
+				<i id="closeModal" class="far fa-times-circle modalButton deleteButton" onclick="handleCloseModal()"></i>
+				<center>
+					<div class="modalBody">
+						<p>Name: <input id="taskName" type="text" placeholder="Task Name"  name="taskName"></input></p>
+						<select id="projectSelect">${projectOptions.join('')}</select>
+					</div>
+					<button id="${status}" onclick="submitTask(event)">Create Task</button>
+				</center>
+			</div>
 		</div>
 	`
 }

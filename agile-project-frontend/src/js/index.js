@@ -222,7 +222,39 @@ window.handleEditProject = (event) => {
 }
 
 window.handleCreateTask = (event) => {
-	console.log('CREATE TASK EVENT', event)
-	// GET ALL PROJECT RECORDS FOR A PICKLIST
-	// SHOW A CREATE MODAL
+	const status = event.target.id
+	getProjects().then(data => {
+		elements.masterContainer.insertAdjacentHTML('beforebegin', TaskView.createTaskModal(status, data))
+	})
 }
+
+window.submitTask = (event) => {
+	console.log('SUBMIT TASK', event, event.target.id)
+	const taskName = document.getElementById('taskName').value
+	const projectId = document.getElementById('projectSelect').value
+	console.log(document.getElementById('projectSelect').value)
+	const status = event.target.id
+	console.log(taskName, projectId, status)
+}
+
+// window.submitProject = () => {
+// 	const projectName = document.getElementById('projectName').value
+// 	const projectNav = document.getElementById('projectNav')
+// 	fetch(projectsUrl, {
+// 		method: 'POST',
+// 		headers: {
+// 			'Content-Type': 'application/json'
+// 		},
+// 		body: JSON.stringify({
+// 			'name': projectName,
+// 			'status': projectStatuses[0]
+// 		})
+// 	})
+// 		.then(response => response.json())
+// 		.then(project => {
+// 			const newProjectCard = ProjectView.renderProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
+// 			projectNav.insertAdjacentHTML('beforeend', newProjectCard)
+// 		})
+// 		.catch(error => console.error('There was an err while creating ur project', error))
+// 	handleCloseModal()
+// }

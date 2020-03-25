@@ -132,6 +132,6 @@ input:focus, button:focus {
 	margin-top: .25rem;
 }
 .createTaskIcon:hover {
-	transform: scale(1.5);
+	transform: scale(1.25);
 	transition: .5s;
 }
