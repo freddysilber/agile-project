@@ -4,6 +4,15 @@ class TasksController < ApplicationController
 		render json: TaskSerializer.new(tasks)
 	end
 
+	def create
+		task = Task.create(
+			name: params[:name],
+			status: params[:status],
+			project_id: params[:project_id]
+		)
+		render json: TaskSerializer.new(task)
+	end
+
 	def update
 		task = Task.find(
 			params[:id]
@@ -40,7 +49,8 @@ class TasksController < ApplicationController
 	def task_params
 		params.require(:task).permit(
 			:name,
-			:status
+			:status,
+			:project_id
 		)
 	end
 end

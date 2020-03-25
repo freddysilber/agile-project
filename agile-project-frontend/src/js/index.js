@@ -229,32 +229,32 @@ window.handleCreateTask = (event) => {
 }
 
 window.submitTask = (event) => {
-	console.log('SUBMIT TASK', event, event.target.id)
 	const taskName = document.getElementById('taskName').value
-	const projectId = document.getElementById('projectSelect').value
-	console.log(document.getElementById('projectSelect').value)
+	const projectName = document.getElementById('projectSelect').value
+	const options = document.querySelectorAll('option')
+	let projectId
+	options.forEach(option => {
+		if (option.innerText === projectName) {
+			projectId = option.id
+		}
+	})
 	const status = event.target.id
 	console.log(taskName, projectId, status)
+	fetch(tasksUrl, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			'name': taskName,
+			'status': status,
+			'project_id': projectId
+		})
+	})
+		.then(response => response.json())
+		.then((task) => {
+			console.log(task)
+		})
+		.catch(error => console.error('There was an error while creating this task', error))
+	handleCloseModal()
 }
-
-// window.submitProject = () => {
-// 	const projectName = document.getElementById('projectName').value
-// 	const projectNav = document.getElementById('projectNav')
-// 	fetch(projectsUrl, {
-// 		method: 'POST',
-// 		headers: {
-// 			'Content-Type': 'application/json'
-// 		},
-// 		body: JSON.stringify({
-// 			'name': projectName,
-// 			'status': projectStatuses[0]
-// 		})
-// 	})
-// 		.then(response => response.json())
-// 		.then(project => {
-// 			const newProjectCard = ProjectView.renderProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
-// 			projectNav.insertAdjacentHTML('beforeend', newProjectCard)
-// 		})
-// 		.catch(error => console.error('There was an err while creating ur project', error))
-// 	handleCloseModal()
-// }

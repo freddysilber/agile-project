@@ -38,7 +38,7 @@ export const createTaskModal = (status, projects) => {
 				<center>
 					<div class="modalBody">
 						<p>Name: <input id="taskName" type="text" placeholder="Task Name"  name="taskName"></input></p>
-						<select id="projectSelect">${projectOptions.join('')}</select>
+						<p>Project: <select id="projectSelect">${projectOptions.join('')}</select></p>
 					</div>
 					<button id="${status}" onclick="submitTask(event)">Create Task</button>
 				</center>
