@@ -11,11 +11,7 @@
 ## Project Obj
 1. add field for type
 2. field for entered hours??
-3. CRUD
-	<!-- a. C -->
-	<!-- b. R -->
-	c. U
-	<!-- d. D -->
+
 ## Task Obj
 <!-- 1. field for status -->
 <!-- 2. field for name -->
