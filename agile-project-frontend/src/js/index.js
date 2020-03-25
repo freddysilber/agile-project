@@ -105,12 +105,10 @@ window.submitProject = () => {
 	handleCloseModal()
 }
 
-window.editProject = () => {
-	console.log('SUBMIT')
+window.editProject = (projectId) => {
 	const projectName = document.getElementById('projectName').value
-	// const projectNav = document.getElementById('projectNav')
-	fetch(projectsUrl, {
-		method: 'POST',
+	fetch(`${projectsUrl}/${projectId}`, {
+		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
 		},
@@ -121,9 +119,11 @@ window.editProject = () => {
 	})
 		.then(response => response.json())
 		.then(project => {
-			console.log('UPDATED PROJECT', project)
+			const newProjectCard = ProjectView.renderProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
+			projectNav.insertAdjacentHTML('beforeend', newProjectCard)
+			const oldProjectCard = document.querySelector(`.projectCard[id="${projectId}"]`)
+			oldProjectCard.remove()
 		})
-	// console.log(projectName)
 	handleCloseModal()
 }
 
@@ -211,7 +211,7 @@ window.handleUpdateTask = (event) => {
 
 window.handleEditProject = (event) => {
 	console.log(event)
-	console.log(event.srcElement.parentNode.id)
-	elements.masterContainer.insertAdjacentHTML('beforebegin', editProjectModal)
+	const projectId = event.srcElement.parentNode.id
+	elements.masterContainer.insertAdjacentHTML('beforebegin', editProjectModal(projectId))
 
 }
