@@ -96,9 +96,11 @@ input:focus, button:focus {
 }
 .deleteButton {
 	float: right;
+	transition: .5s;
 }
 .deleteButton:hover {
-	background: lightpink;
+	transition: .5s;
+	transform: scale(1.25);
 }
 .projectNavTitle {
 	margin: .2rem;
@@ -106,4 +108,19 @@ input:focus, button:focus {
 .projectNavTitleContainer {
 	display: flex;
 	justify-content: center;
+}
+.editIcon {
+	transition: .5s;
+}
+.editIcon:hover {
+	transition: .5s;
+	transform: scale(1.25);
+}
+.createProjectIcon {
+	float: right;
+	transition: .5s;
+}
+.createProjectIcon:hover {
+	transition: .5s;
+	transform: scale(1.25);
 }

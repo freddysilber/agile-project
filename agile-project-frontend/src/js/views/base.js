@@ -3,8 +3,8 @@ export const elements = {
 	projectNav: document.getElementById('projectNav'),
 	kanban: document.getElementById('kanban'),
 	masterContainer: document.getElementById('masterContainer'),
-	createProjectIcon: document.getElementById('createProject'),
-	projectCard: document.getElementById('projectCard')
+	createProjectIcon: document.getElementById('createProject')
+	// projectCard: document.getElementById('projectCard')
 }
 
 export const getColumn = (status) => {
@@ -18,7 +18,7 @@ export const getColumn = (status) => {
 export const newProjectModal = `
 	<div id="myModal" class="modal">
 		<div class="modalContent">
-			<i id="closeModal" class="far fa-times-circle modalButton" onclick="handleCloseModal()"></i>
+			<i id="closeModal" class="far fa-times-circle modalButton deleteButton" onclick="handleCloseModal()"></i>
 			<center>
 				<div class="modalBody">
 					<p>Name: <input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input></p>
@@ -33,7 +33,7 @@ export const editProjectModal = (projectId, projectName) => {
 	return `
 		<div id="myModal" class="modal">
 			<div class="modalContent">
-				<i id="closeModal" class="far fa-times-circle modalButton" onclick="handleCloseModal()"></i>
+				<i id="closeModal" class="far fa-times-circle modalButton deleteButton" onclick="handleCloseModal()"></i>
 				<center>
 					<div class="modalBody">
 						<p>Name: <input id="projectName" type="text" placeholder="${projectName}"  name="projectName"></input></p>

@@ -75,9 +75,12 @@ window.drop = (event) => {
 	updateTaskStatus(data, columnId)
 }
 
-elements.createProjectIcon.addEventListener('click', () => {
+// elements.createProjectIcon.addEventListener('click', () => {
+// 	handleNewProject()
+// })
+window.handleCreateProject = () => {
 	handleNewProject()
-})
+}
 
 const handleNewProject = () => {
 	elements.masterContainer.insertAdjacentHTML('beforebegin', newProjectModal)
