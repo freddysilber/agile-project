@@ -1,5 +1,4 @@
 1. open a new terminal and cd to the backend
 	a. run 'rails s'
 2. open another terminal and cd to the frontend
-	a. run 'open index.html'
 	a. run npm start
