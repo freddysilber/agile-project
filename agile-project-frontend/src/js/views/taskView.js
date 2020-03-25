@@ -21,3 +21,17 @@ export const getTaskEdit = (id, name) => {
 		</div>
 	`
 }
+
+export const removePreviousTaskEdit = () => {
+	const recordView = document.getElementById('recordView')
+	while (recordView.firstChild) {
+		recordView.firstChild.remove()
+	}
+}
+
+export const clearTaskCardBackgrounds = () => {
+	const cards = document.querySelectorAll('.taskCard')
+	cards.forEach(card => {
+		card.style.background = ''
+	})
+}

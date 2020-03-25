@@ -11,6 +11,9 @@ export const getColumn = (status) => {
 	return `
 		<div id="${status}" class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
 			<h3 class="columnTitle"><em><u>${status}</u></em></h3>
+			<div class="addTaskIconContainer" onclick="handleCreateTask(${status})">
+				<i class="far fa-plus-square fa-lg"></i>
+			</div>
 		</div>
 	`
 }

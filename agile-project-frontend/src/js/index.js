@@ -8,13 +8,15 @@ import * as TaskView from './views/taskView'
 window.addEventListener('DOMContentLoaded', () => {
 	drawBoard()
 	getProjects().then(data => {
-		const projects = createProjectCards(data.data)
-		projects.forEach(project => {
-			const cardItem = ProjectView.getProjectCard(project.id, project.name, project.status)
-			elements.projectNav.insertAdjacentHTML('beforeend', cardItem)
+		createProjectCards(data.data).forEach(project => {
+			elements.projectNav.insertAdjacentHTML('beforeend', ProjectView.renderProjectCard(project.id, project.name, project.status))
 		})
 	})
 })
+
+const getProjects = async () => {
+	return await (await fetch(projectsUrl)).json()
+}
 
 const createProjectCards = (data) => {
 	return data.map(project => new Project(project.id, project.attributes.name, project.attributes.status))
@@ -22,24 +24,21 @@ const createProjectCards = (data) => {
 
 window.handleSelectProject = (event) => {
 	drawBoard()
+	ProjectView.clearProjectCardBackgrounds()
 	let projectCard = event.target
 	while (!projectCard.classList.contains('projectCard')) {
 		projectCard = projectCard.parentElement
 	}
+	projectCard.style.background = 'lightgray'
 	fetch(`${projectsUrl}/${projectCard.id}`)
 		.then(response => response.json())
 		.then(data => {
 			const projectTasks = data.data.attributes.tasks
 			projectTasks.forEach(task => {
-				const taskCard = TaskView.getTaskCard(task.id, task.name, task.status)
-				document.querySelector(`.column[id="${task.status}"]`).insertAdjacentHTML('beforeend', taskCard)
+				document.querySelector(`.column[id="${task.status}"]`).insertAdjacentHTML('beforeend', TaskView.getTaskCard(task.id, task.name, task.status))
 			})
 		})
 		.catch(error => console.error('There was an err trying to get ur project', error))
-}
-
-const getProjects = async () => {
-	return await (await fetch(projectsUrl)).json()
 }
 
 const drawBoard = () => {
@@ -85,8 +84,8 @@ const handleNewProject = () => {
 }
 
 window.submitProject = () => {
-	const projctNav = document.getElementById('projectNav')
 	const projectName = document.getElementById('projectName').value
+	const projctNav = document.getElementById('projectNav')
 	fetch(projectsUrl, {
 		method: 'POST',
 		headers: {
@@ -99,7 +98,7 @@ window.submitProject = () => {
 	})
 		.then(response => response.json())
 		.then(project => {
-			const newProjectCard = ProjectView.getProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
+			const newProjectCard = ProjectView.renderProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
 			projctNav.insertAdjacentHTML('beforeend', newProjectCard)
 		})
 		.catch(error => console.error('There was an err while creating ur project', error))
@@ -145,14 +144,13 @@ window.handleDeleteTask = (event) => {
 }
 
 window.handleSelectTask = (event) => {
-	const recordView = document.getElementById('recordView')
-	while (recordView.firstChild) {
-		recordView.firstChild.remove()
-	}
+	TaskView.removePreviousTaskEdit()
+	TaskView.clearTaskCardBackgrounds()
 	let taskCard = event.target
 	while (!taskCard.classList.contains('taskCard')) {
 		taskCard = taskCard.parentNode
 	}
+	taskCard.style.background = 'lightgray'
 	const taskId = taskCard.id
 	fetch(`${tasksUrl}/${taskId}`, {
 		method: 'GET',
@@ -187,4 +185,9 @@ window.handleUpdateTask = (event) => {
 			column.insertAdjacentHTML('beforeend', newTaskCard)
 		})
 		.catch(error => console.error('There was an err while updating this task', error))
+}
+
+window.handleCreateTask = (status) => {
+	// console.log(status)
+	console.log('test')
 }

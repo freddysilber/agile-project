@@ -106,3 +106,14 @@ input:focus, button:focus {
 	display: flex;
 	justify-content: center;
 }
+.addTaskIconContainer {
+	padding: .5rem;
+	border: 1px solid lightgray; 
+	border-radius: 1rem; 
+	margin: .2rem;
+	transition: .5s;
+}
+.addTaskIconContainer:hover {
+	border-color: white;
+	transition: .5s;
+}
