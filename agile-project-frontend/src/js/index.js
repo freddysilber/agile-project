@@ -186,8 +186,3 @@ window.handleUpdateTask = (event) => {
 		})
 		.catch(error => console.error('There was an err while updating this task', error))
 }
-
-window.handleCreateTask = (status) => {
-	// console.log(status)
-	console.log('test')
-}
