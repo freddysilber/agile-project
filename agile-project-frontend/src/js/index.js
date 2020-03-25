@@ -211,7 +211,7 @@ window.handleUpdateTask = (event) => {
 
 window.handleEditProject = (event) => {
 	console.log(event)
+	const projectName = event.srcElement.nextElementSibling.textContent.split(':')[1]
 	const projectId = event.srcElement.parentNode.id
-	elements.masterContainer.insertAdjacentHTML('beforebegin', editProjectModal(projectId))
-
+	elements.masterContainer.insertAdjacentHTML('beforebegin', editProjectModal(projectId, projectName))
 }

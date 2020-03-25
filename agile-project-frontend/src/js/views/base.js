@@ -29,14 +29,14 @@ export const newProjectModal = `
 	</div>
 `
 
-export const editProjectModal = (projectId) => {
+export const editProjectModal = (projectId, projectName) => {
 	return `
 		<div id="myModal" class="modal">
 			<div class="modalContent">
 				<i id="closeModal" class="far fa-times-circle modalButton" onclick="handleCloseModal()"></i>
 				<center>
 					<div class="modalBody">
-						<p>Name: <input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input></p>
+						<p>Name: <input id="projectName" type="text" placeholder="${projectName}"  name="projectName"></input></p>
 					</div>
 					<button onclick="editProject(${projectId})">Update Project</button>
 				</center>
