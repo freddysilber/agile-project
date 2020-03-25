@@ -22,6 +22,7 @@ input:focus, button:focus {
 	overflow: scroll;
 	border: 1px solid black;
 	width: 25rem;
+	padding: .2rem;
 	height: 100vh;
 	margin: .2rem;
 	text-align: center;
@@ -124,4 +125,13 @@ input:focus, button:focus {
 .createProjectIcon:hover {
 	transition: .5s;
 	transform: scale(1.25);
+}
+.createTaskIcon {
+	transition: .5s;
+	float: right;
+	margin-top: .25rem;
+}
+.createTaskIcon:hover {
+	transform: scale(1.5);
+	transition: .5s;
 }

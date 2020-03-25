@@ -220,3 +220,9 @@ window.handleEditProject = (event) => {
 	const projectId = event.srcElement.parentNode.id
 	elements.masterContainer.insertAdjacentHTML('beforebegin', editProjectModal(projectId, projectName))
 }
+
+window.handleCreateTask = (event) => {
+	console.log('CREATE TASK EVENT', event)
+	// GET ALL PROJECT RECORDS FOR A PICKLIST
+	// SHOW A CREATE MODAL
+}

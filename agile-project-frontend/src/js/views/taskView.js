@@ -10,7 +10,7 @@ export const getTaskCard = (id, name, status) => {
 
 export const getTaskEdit = (id, name) => {
 	return `
-		<div>
+		<div style="margin: 1rem">
 			<center>
 				<p>Edit Task</p>
 				<hr>
