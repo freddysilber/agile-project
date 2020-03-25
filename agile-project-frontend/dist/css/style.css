@@ -57,6 +57,7 @@ input:focus, button:focus {
 .projectCard, .taskCard {
 	text-align: left;
 	border: 1px solid darkgray;
+	border-radius: .5rem;
 	padding: .25rem;
 	transition: .5s;
 	margin: 2px 0px 2px 0px;
