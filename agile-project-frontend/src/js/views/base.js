@@ -4,12 +4,11 @@ export const elements = {
 	kanban: document.getElementById('kanban'),
 	masterContainer: document.getElementById('masterContainer'),
 	createProjectIcon: document.getElementById('createProject')
-	// projectCard: document.getElementById('projectCard')
 }
 
 export const getColumn = (status) => {
 	return `
-		<div id="${status}" class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+		<div id="${status}" class="column" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="handleDragLeave(event)">
 			<h3 class="columnTitle"><em><u>${status}</u></em></h3>
 		</div>
 	`

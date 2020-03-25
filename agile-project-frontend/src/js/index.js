@@ -56,6 +56,12 @@ const clearBoard = () => {
 }
 
 window.allowDrop = (event) => {
+	event.srcElement.style.background = '#F3F3F3'
+	event.preventDefault()
+}
+
+window.handleDragLeave = (event) => {
+	event.srcElement.style.background = ''
 	event.preventDefault()
 }
 
@@ -75,9 +81,6 @@ window.drop = (event) => {
 	updateTaskStatus(data, columnId)
 }
 
-// elements.createProjectIcon.addEventListener('click', () => {
-// 	handleNewProject()
-// })
 window.handleCreateProject = () => {
 	handleNewProject()
 }
