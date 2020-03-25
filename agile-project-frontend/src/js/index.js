@@ -1,7 +1,7 @@
 import { Project, deleteProject } from './models/Project'
 import { deleteTask } from './models/Task'
 import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
-import { elements, newProjectModal, getColumn } from './views/base'
+import { elements, newProjectModal, editProjectModal, getColumn } from './views/base'
 import * as ProjectView from './views/projectView'
 import * as TaskView from './views/taskView'
 
@@ -85,7 +85,7 @@ const handleNewProject = () => {
 
 window.submitProject = () => {
 	const projectName = document.getElementById('projectName').value
-	const projctNav = document.getElementById('projectNav')
+	const projectNav = document.getElementById('projectNav')
 	fetch(projectsUrl, {
 		method: 'POST',
 		headers: {
@@ -99,9 +99,31 @@ window.submitProject = () => {
 		.then(response => response.json())
 		.then(project => {
 			const newProjectCard = ProjectView.renderProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
-			projctNav.insertAdjacentHTML('beforeend', newProjectCard)
+			projectNav.insertAdjacentHTML('beforeend', newProjectCard)
 		})
 		.catch(error => console.error('There was an err while creating ur project', error))
+	handleCloseModal()
+}
+
+window.editProject = () => {
+	console.log('SUBMIT')
+	const projectName = document.getElementById('projectName').value
+	// const projectNav = document.getElementById('projectNav')
+	fetch(projectsUrl, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			'name': projectName,
+			'status': projectStatuses[0]
+		})
+	})
+		.then(response => response.json())
+		.then(project => {
+			console.log('UPDATED PROJECT', project)
+		})
+	// console.log(projectName)
 	handleCloseModal()
 }
 
@@ -185,4 +207,11 @@ window.handleUpdateTask = (event) => {
 			column.insertAdjacentHTML('beforeend', newTaskCard)
 		})
 		.catch(error => console.error('There was an err while updating this task', error))
+}
+
+window.handleEditProject = (event) => {
+	console.log(event)
+	console.log(event.srcElement.parentNode.id)
+	elements.masterContainer.insertAdjacentHTML('beforebegin', editProjectModal)
+
 }

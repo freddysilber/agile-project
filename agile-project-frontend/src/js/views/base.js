@@ -28,3 +28,17 @@ export const newProjectModal = `
 		</div>
 	</div>
 `
+
+export const editProjectModal = `
+	<div id="myModal" class="modal">
+		<div class="modalContent">
+			<i id="closeModal" class="far fa-times-circle modalButton" onclick="handleCloseModal()"></i>
+			<center>
+				<div class="modalBody">
+					<p>Name: <input id="projectName" type="text" placeholder="Project Name"  name="projectName"></input></p>
+				</div>
+				<button onclick="editProject()">Create Project</button>
+			</center>
+		</div>
+	</div>
+`
