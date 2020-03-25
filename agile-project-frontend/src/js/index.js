@@ -239,7 +239,6 @@ window.submitTask = (event) => {
 		}
 	})
 	const status = event.target.id
-	console.log(taskName, projectId, status)
 	fetch(tasksUrl, {
 		method: 'POST',
 		headers: {
@@ -252,9 +251,6 @@ window.submitTask = (event) => {
 		})
 	})
 		.then(response => response.json())
-		.then((task) => {
-			console.log(task)
-		})
 		.catch(error => console.error('There was an error while creating this task', error))
 	handleCloseModal()
 }
