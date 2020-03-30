@@ -89,10 +89,10 @@ const handleNewProject = () => {
 	elements.masterContainer.insertAdjacentHTML('beforebegin', newProjectModal)
 }
 
-window.submitProject = () => {
+window.submitProject = () => { // Create project
 	const projectName = document.getElementById('projectName').value
 	const projectNav = document.getElementById('projectNav')
-	fetch(projectsUrl, {
+	fetch(projectsUrl, { //ww.locaalhost/projects
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
@@ -111,7 +111,7 @@ window.submitProject = () => {
 	handleCloseModal()
 }
 
-window.editProject = (projectId) => {
+window.editProject = (projectId) => { // edit project
 	const projectName = document.getElementById('projectName').value
 	fetch(`${projectsUrl}/${projectId}`, {
 		method: 'PATCH',
@@ -253,4 +253,29 @@ window.submitTask = (event) => {
 		.then(response => response.json())
 		.catch(error => console.error('There was an error while creating this task', error))
 	handleCloseModal()
+}
+
+window.handleSortByStatus = () => {
+	const projectNav = document.querySelector('#projectNav')
+	const projectCards = document.querySelectorAll('.projectCard')
+	let projects = Array.from(projectCards)
+
+	projects.sort((a, b) => {
+		const firstValue = a.children[3].innerText
+		const secondValue = b.children[3].innerText
+		if (firstValue !== secondValue) {
+			return -1
+		}
+		if (firstValue === secondValue) {
+			return 1
+		}
+		return 0
+	})
+	projectCards.forEach(card => {
+		card.remove()
+	})
+	projects.forEach(p => {
+		console.log(p)
+		projectNav.insertAdjacentElement('beforeend', p)
+	})
 }
