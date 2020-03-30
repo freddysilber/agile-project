@@ -41,8 +41,13 @@ attack(human)
 
 
 
-// Execution
+// Execution (compiling phase, execution phase, ...closure)
+// this ==> the window object or global object. 
+
+// window: global object
+// this: window
 const execute = () => {
+	// this ==> the object that represents the function's execution context
 	const first = () => {
 		console.log(1)
 		const second = () => {
@@ -62,13 +67,29 @@ execute()
 let count = 0
 
 const sum = (x) => {
+	// console.log(this, arguments) || this => window object, arguments ==> the arguments passed in (5)
 	console.log(x, arguments)
-	return y => {
-    console.log(y, y + x)
-    return x + y
+	return y => { // *
+		console.log(y, y + x)
+		return x + y // --> Closure! (The outer function [ * ] already popped off the execution stack but can still reference 'x')
 	}
 }
 
 const add5 = sum(5)
 console.log(add5) // --> function() { }
 count += add5(2)
+
+// -->
+
+class Person {
+	constructor(name) {
+		this.name = name
+	}
+
+	greeting = () => {
+		console.log(`Hi, I'm ${this.name}!`) // --> the name of this instance of this object
+	}
+}
+
+const harry = new Person('Harry')
+harry.speak() // --> Hi, I'm Harry!
