@@ -259,7 +259,6 @@ window.handleSortByStatus = () => {
 	const projectNav = document.querySelector('#projectNav')
 	const projectCards = document.querySelectorAll('.projectCard')
 	let projects = Array.from(projectCards)
-
 	projects.sort((a, b) => {
 		const firstValue = a.children[3].innerText
 		const secondValue = b.children[3].innerText
@@ -275,7 +274,6 @@ window.handleSortByStatus = () => {
 		card.remove()
 	})
 	projects.forEach(p => {
-		console.log(p)
 		projectNav.insertAdjacentElement('beforeend', p)
 	})
 }
