@@ -15,3 +15,7 @@ export const deleteProject = (projectId) => {
 		.then(response => response.json())
 		.catch(error => console.error('There was an error trying to delete your project', error))
 }
+
+export const getProjects = async () => {
+	return await (await fetch(projectsUrl)).json()
+}

@@ -121,6 +121,7 @@ input:focus, button:focus {
 	margin-top: .5em;
 	float: right;
 	transition: .5s;
+	margin-left: 1rem;
 }
 .createProjectIcon:hover {
 	transition: .5s;

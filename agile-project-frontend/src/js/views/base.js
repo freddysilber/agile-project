@@ -3,7 +3,8 @@ export const elements = {
 	projectNav: document.getElementById('projectNav'),
 	kanban: document.getElementById('kanban'),
 	masterContainer: document.getElementById('masterContainer'),
-	createProjectIcon: document.getElementById('createProject')
+	createProjectIcon: document.getElementById('createProject'),
+	columns: document.querySelectorAll('.column')
 }
 
 export const getColumn = (status) => {

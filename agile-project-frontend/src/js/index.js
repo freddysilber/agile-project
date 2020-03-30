@@ -4,9 +4,11 @@ import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
 import { elements, newProjectModal, editProjectModal, getColumn } from './views/base'
 import * as ProjectView from './views/projectView'
 import * as TaskView from './views/taskView'
+import * as Util from './helpers/Util'
 
 window.addEventListener('DOMContentLoaded', () => {
 	drawBoard()
+	// Util.drawBoard()
 	getProjects().then(data => {
 		createProjectCards(data.data).forEach(project => {
 			elements.projectNav.insertAdjacentHTML('beforeend', ProjectView.renderProjectCard(project.id, project.name, project.status))
@@ -24,6 +26,7 @@ const createProjectCards = (data) => {
 
 window.handleSelectProject = (event) => {
 	drawBoard()
+	// Util.drawBoard()
 	ProjectView.clearProjectCardBackgrounds()
 	let projectCard = event.target
 	while (!projectCard.classList.contains('projectCard')) {
