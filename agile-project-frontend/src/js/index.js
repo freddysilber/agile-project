@@ -1,4 +1,5 @@
-import { Project, deleteProject } from './models/Project'
+// import { Project, deleteProject } from './models/Project'
+import * as Project from './models/Project'
 import { deleteTask } from './models/Task'
 import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
 import { elements, newProjectModal, editProjectModal, getColumn } from './views/base'
@@ -8,25 +9,19 @@ import * as Util from './helpers/Util'
 
 window.addEventListener('DOMContentLoaded', () => {
 	drawBoard()
-	// Util.drawBoard()
-	getProjects().then(data => {
+	Project.all().then(data => {
 		createProjectCards(data.data).forEach(project => {
 			elements.projectNav.insertAdjacentHTML('beforeend', ProjectView.renderProjectCard(project.id, project.name, project.status))
 		})
 	})
 })
 
-const getProjects = async () => {
-	return await (await fetch(projectsUrl)).json()
-}
-
 const createProjectCards = (data) => {
-	return data.map(project => new Project(project.id, project.attributes.name, project.attributes.status))
+	return data.map(project => new Project.Project(project.id, project.attributes.name, project.attributes.status))
 }
 
 window.handleSelectProject = (event) => {
 	drawBoard()
-	// Util.drawBoard()
 	ProjectView.clearProjectCardBackgrounds()
 	let projectCard = event.target
 	while (!projectCard.classList.contains('projectCard')) {
@@ -226,7 +221,7 @@ window.handleEditProject = (event) => {
 
 window.handleCreateTask = (event) => {
 	const status = event.target.id
-	getProjects().then(data => {
+	Project.all().then(data => {
 		elements.masterContainer.insertAdjacentHTML('beforebegin', TaskView.createTaskModal(status, data))
 	})
 }
