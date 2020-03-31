@@ -43,3 +43,23 @@ export const create = (name, nav) => {
 		})
 		.catch(error => console.error('There was an err while creating ur project', error))
 }
+
+export const editProject = (id, name) => {
+	fetch(`${projectsUrl}/${id}`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			'name': name,
+			'status': projectStatuses[0]
+		})
+	})
+		.then(response => response.json())
+		.then(project => {
+			const newProjectCard = ProjectView.renderProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
+			projectNav.insertAdjacentHTML('beforeend', newProjectCard)
+			const oldProjectCard = document.querySelector(`.projectCard[id="${id}"]`)
+			oldProjectCard.remove()
+		})
+}

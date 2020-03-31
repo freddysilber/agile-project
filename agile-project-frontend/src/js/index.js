@@ -1,6 +1,5 @@
 import * as Project from './models/Project'
 import * as Task from './models/Task'
-import { projectsUrl, tasksUrl, projectStatuses } from './config'
 import { elements, newProjectModal, editProjectModal } from './views/base'
 import * as ProjectView from './views/projectView'
 import * as TaskView from './views/taskView'
@@ -80,23 +79,7 @@ window.submitProject = () => { // Create project
 
 window.editProject = (projectId) => { // edit project
 	const projectName = document.getElementById('projectName').value
-	fetch(`${projectsUrl}/${projectId}`, {
-		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			'name': projectName,
-			'status': projectStatuses[0]
-		})
-	})
-		.then(response => response.json())
-		.then(project => {
-			const newProjectCard = ProjectView.renderProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
-			projectNav.insertAdjacentHTML('beforeend', newProjectCard)
-			const oldProjectCard = document.querySelector(`.projectCard[id="${projectId}"]`)
-			oldProjectCard.remove()
-		})
+	Project.editProject(projectId, projectName)
 	handleCloseModal()
 }
 
