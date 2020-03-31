@@ -62,3 +62,37 @@ export const update = (id, name) => {
 		})
 		.catch(error => console.error('There was an err while updating this task', error))
 }
+
+export const getTask = (id) => {
+	fetch(`${tasksUrl}/${id}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+		.then(response => response.json())
+		.then(task => {
+			recordView.insertAdjacentHTML('beforeend', TaskView.getTaskEdit(task.data.id, task.data.attributes.name))
+		})
+}
+
+export const updateStatus = (id, status) => {
+	fetch(`${tasksUrl}/${id}`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			"status": status
+		})
+	})
+		.then(response => response.json())
+		.then(task => {
+			const newTaskCard = TaskView.getTaskCard(task.data.id, task.data.attributes.name, task.data.attributes.status)
+			const taskCard = document.querySelector(`.taskCard[id="${task.data.id}"]`)
+			taskCard.remove()
+			const column = document.querySelector(`.column[id="${task.data.attributes.status}"]`)
+			column.insertAdjacentHTML('beforeend', newTaskCard)
+		})
+		.catch(error => console.error('there was an err trying to delete this project!', error))
+}

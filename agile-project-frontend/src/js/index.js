@@ -1,8 +1,7 @@
-// import { Project, deleteProject } from './models/Project'
 import * as Project from './models/Project'
 import * as Task from './models/Task'
-import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
-import { elements, newProjectModal, editProjectModal, getColumn } from './views/base'
+import { projectsUrl, tasksUrl, projectStatuses } from './config'
+import { elements, newProjectModal, editProjectModal } from './views/base'
 import * as ProjectView from './views/projectView'
 import * as TaskView from './views/taskView'
 import * as Util from './helpers/Util'
@@ -106,24 +105,7 @@ window.handleCloseModal = () => {
 }
 
 const updateTaskStatus = (taskId, status) => {
-	fetch(`${tasksUrl}/${taskId}`, {
-		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			"status": status
-		})
-	})
-		.then(response => response.json())
-		.then(task => {
-			const newTaskCard = TaskView.getTaskCard(task.data.id, task.data.attributes.name, task.data.attributes.status)
-			const taskCard = document.querySelector(`.taskCard[id="${task.data.id}"]`)
-			taskCard.remove()
-			const column = document.querySelector(`.column[id="${task.data.attributes.status}"]`)
-			column.insertAdjacentHTML('beforeend', newTaskCard)
-		})
-		.catch(error => console.error('there was an err trying to delete this project!', error))
+	Task.updateStatus(taskId, status)
 }
 
 window.handleDeleteProject = (event) => {
@@ -147,17 +129,7 @@ window.handleSelectTask = (event) => {
 		taskCard = taskCard.parentNode
 	}
 	taskCard.style.background = 'lightgray'
-	const taskId = taskCard.id
-	fetch(`${tasksUrl}/${taskId}`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-		.then(response => response.json())
-		.then(task => {
-			recordView.insertAdjacentHTML('beforeend', TaskView.getTaskEdit(task.data.id, task.data.attributes.name))
-		})
+	Task.getTask(taskCard.id)
 }
 
 window.handleUpdateTask = (event) => {
