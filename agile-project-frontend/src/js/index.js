@@ -1,6 +1,6 @@
 // import { Project, deleteProject } from './models/Project'
 import * as Project from './models/Project'
-import { deleteTask } from './models/Task'
+import * as Task from './models/Task'
 import { projectsUrl, tasksUrl, projectStatuses, taskStatuses } from './config'
 import { elements, newProjectModal, editProjectModal, getColumn } from './views/base'
 import * as ProjectView from './views/projectView'
@@ -40,16 +40,9 @@ window.handleSelectProject = (event) => {
 }
 
 const drawBoard = () => {
-	clearBoard()
+	Util.clearBoard()
 	taskStatuses.forEach(status => {
 		elements.kanban.insertAdjacentHTML('beforeend', getColumn(status))
-	})
-}
-
-const clearBoard = () => {
-	const columns = document.querySelectorAll('.column')
-	columns.forEach(column => {
-		column.remove()
 	})
 }
 
@@ -90,22 +83,7 @@ const handleNewProject = () => {
 window.submitProject = () => { // Create project
 	const projectName = document.getElementById('projectName').value
 	const projectNav = document.getElementById('projectNav')
-	fetch(projectsUrl, { //ww.locaalhost/projects
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			'name': projectName,
-			'status': projectStatuses[0]
-		})
-	})
-		.then(response => response.json())
-		.then(project => {
-			const newProjectCard = ProjectView.renderProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
-			projectNav.insertAdjacentHTML('beforeend', newProjectCard)
-		})
-		.catch(error => console.error('There was an err while creating ur project', error))
+	Project.create(projectName, projectNav)
 	handleCloseModal()
 }
 
@@ -193,24 +171,7 @@ window.handleSelectTask = (event) => {
 window.handleUpdateTask = (event) => {
 	const taskId = event.target.previousElementSibling.id
 	const newTaskName = event.target.previousElementSibling.value
-	fetch(`${tasksUrl}/${taskId}`, {
-		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			"name": newTaskName
-		})
-	})
-		.then(response => response.json())
-		.then(task => {
-			const newTaskCard = TaskView.getTaskCard(task.data.id, task.data.attributes.name, task.data.attributes.status)
-			const taskCard = document.querySelector(`.taskCard[id="${task.data.id}"]`)
-			taskCard.remove()
-			const column = document.querySelector(`.column[id="${task.data.attributes.status}"]`)
-			column.insertAdjacentHTML('beforeend', newTaskCard)
-		})
-		.catch(error => console.error('There was an err while updating this task', error))
+	Task.update(taskId, newTaskName)
 }
 
 window.handleEditProject = (event) => {
@@ -227,51 +188,10 @@ window.handleCreateTask = (event) => {
 }
 
 window.submitTask = (event) => {
-	const taskName = document.getElementById('taskName').value
-	const projectName = document.getElementById('projectSelect').value
-	const options = document.querySelectorAll('option')
-	let projectId
-	options.forEach(option => {
-		if (option.innerText === projectName) {
-			projectId = option.id
-		}
-	})
-	const status = event.target.id
-	fetch(tasksUrl, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			'name': taskName,
-			'status': status,
-			'project_id': projectId
-		})
-	})
-		.then(response => response.json())
-		.catch(error => console.error('There was an error while creating this task', error))
+	Task.create(event.target.id)
 	handleCloseModal()
 }
 
-window.handleSortByStatus = () => {
-	const projectNav = document.querySelector('#projectNav')
-	const projectCards = document.querySelectorAll('.projectCard')
-	let projects = Array.from(projectCards)
-	projects.sort((a, b) => {
-		const firstValue = a.children[3].innerText
-		const secondValue = b.children[3].innerText
-		if (firstValue !== secondValue) {
-			return -1
-		}
-		if (firstValue === secondValue) {
-			return 1
-		}
-		return 0
-	})
-	projectCards.forEach(card => {
-		card.remove()
-	})
-	projects.forEach(p => {
-		projectNav.insertAdjacentElement('beforeend', p)
-	})
+window.handleSortByStatus = () => { // Toggles sort by status feature implemented on final project review part 1
+	Util.SortProjectsByStatus() // call util to hanlde sorting
 }

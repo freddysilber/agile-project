@@ -1,4 +1,5 @@
-import { projectsUrl } from '../config'
+import { projectsUrl, projectStatuses } from '../config'
+import * as ProjectView from '../views/projectView'
 
 export class Project {
 	constructor(id, name, status) {
@@ -18,4 +19,23 @@ export const deleteProject = (projectId) => {
 
 export const all = async () => {
 	return await (await fetch(projectsUrl)).json()
+}
+
+export const create = (name, nav) => {
+	fetch(projectsUrl, { //ww.locaalhost/projects
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			'name': name,
+			'status': projectStatuses[0]
+		})
+	})
+		.then(response => response.json())
+		.then(project => {
+			const newProjectCard = ProjectView.renderProjectCard(project.data.id, project.data.attributes.name, project.data.attributes.status)
+			nav.insertAdjacentHTML('beforeend', newProjectCard)
+		})
+		.catch(error => console.error('There was an err while creating ur project', error))
 }
