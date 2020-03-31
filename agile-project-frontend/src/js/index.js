@@ -8,7 +8,7 @@ import * as TaskView from './views/taskView'
 import * as Util from './helpers/Util'
 
 window.addEventListener('DOMContentLoaded', () => {
-	drawBoard()
+	Util.buildBoard()
 	Project.all().then(data => {
 		createProjectCards(data.data).forEach(project => {
 			elements.projectNav.insertAdjacentHTML('beforeend', ProjectView.renderProjectCard(project.id, project.name, project.status))
@@ -21,29 +21,21 @@ const createProjectCards = (data) => {
 }
 
 window.handleSelectProject = (event) => {
-	drawBoard()
+	Util.buildBoard()
 	ProjectView.clearProjectCardBackgrounds()
 	let projectCard = event.target
 	while (!projectCard.classList.contains('projectCard')) {
 		projectCard = projectCard.parentElement
 	}
 	projectCard.style.background = 'lightgray'
-	fetch(`${projectsUrl}/${projectCard.id}`)
-		.then(response => response.json())
-		.then(data => {
-			const projectTasks = data.data.attributes.tasks
-			projectTasks.forEach(task => {
-				document.querySelector(`.column[id="${task.status}"]`).insertAdjacentHTML('beforeend', TaskView.getTaskCard(task.id, task.name, task.status))
-			})
-		})
-		.catch(error => console.error('There was an err trying to get ur project', error))
-}
 
-const drawBoard = () => {
-	Util.clearBoard()
-	taskStatuses.forEach(status => {
-		elements.kanban.insertAdjacentHTML('beforeend', getColumn(status))
+	Project.getProject(projectCard.id).then(data => {
+		const projectTasks = data.data.attributes.tasks
+		projectTasks.forEach(task => {
+			document.querySelector(`.column[id="${task.status}"]`).insertAdjacentHTML('beforeend', TaskView.getTaskCard(task.id, task.name, task.status))
+		})
 	})
+		.catch(error => console.error('There was an err trying to get ur project', error))
 }
 
 window.allowDrop = (event) => {
@@ -136,7 +128,7 @@ const updateTaskStatus = (taskId, status) => {
 
 window.handleDeleteProject = (event) => {
 	event.stopPropagation()
-	deleteProject(event.target.parentNode.id)
+	Project.deleteProj(event.target.parentNode.id)
 	event.target.parentNode.remove()
 }
 

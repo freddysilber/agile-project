@@ -1,10 +1,13 @@
-// import { elements, getColumn } from '../views/base'
-// import { taskStatuses } from '../config'
+import { elements, getColumn } from '../views/base'
+import { taskStatuses } from '../config'
 
-export const clearBoard = () => {
+export const buildBoard = () => {
 	const columns = document.querySelectorAll('.column')
 	columns.forEach(column => {
 		column.remove()
+	})
+	taskStatuses.forEach(status => {
+		elements.kanban.insertAdjacentHTML('beforeend', getColumn(status))
 	})
 }
 

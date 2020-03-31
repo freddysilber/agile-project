@@ -9,7 +9,7 @@ export class Project {
 	}
 }
 
-export const deleteProject = (projectId) => {
+export const deleteProj = (projectId) => {
 	fetch(`${projectsUrl}/${projectId}`, {
 		method: 'DELETE'
 	})
@@ -21,8 +21,12 @@ export const all = async () => {
 	return await (await fetch(projectsUrl)).json()
 }
 
+export const getProject = async (projectId) => {
+	return await (await fetch(`${projectsUrl}/${projectId}`)).json()
+}
+
 export const create = (name, nav) => {
-	fetch(projectsUrl, { //ww.locaalhost/projects
+	fetch(projectsUrl, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
