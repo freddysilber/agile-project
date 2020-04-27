@@ -1,7 +1,7 @@
 # agile-project
 Javascript + Rails API agile project powered by Flatirons School
 
-## Demo Video: https://www.youtube.com/watch?v=yQMf8GfuxRA
+### Demo Video: https://www.youtube.com/watch?v=yQMf8GfuxRA
 
 ## What
 A simple kanban board for personal task management and organizing tasks
