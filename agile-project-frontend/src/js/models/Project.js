@@ -1,4 +1,4 @@
-import { projectsUrl, projectStatuses } from '../config'
+import { projectsUrl, projectStatuses } from '../constants/config'
 import * as ProjectView from '../views/projectView'
 
 export class Project {

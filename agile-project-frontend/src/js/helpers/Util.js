@@ -1,5 +1,5 @@
 import { elements, getColumn } from '../views/base'
-import { taskStatuses } from '../config'
+import { taskStatuses } from '../constants/config'
 
 export const buildBoard = () => {
 	const columns = document.querySelectorAll('.column')

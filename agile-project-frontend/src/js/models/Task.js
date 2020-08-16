@@ -1,4 +1,4 @@
-import { tasksUrl } from '../config'
+import { tasksUrl } from '../constants/config'
 import * as TaskView from '../views/taskView'
 
 export class Task {
