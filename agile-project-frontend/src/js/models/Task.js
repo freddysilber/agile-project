@@ -9,7 +9,7 @@ export class Task {
 	}
 }
 
-export const deleteTask = (taskId) => {
+export const deleteTask = taskId => {
 	fetch(`${tasksUrl}/${taskId}`, {
 		method: 'DELETE'
 	})
@@ -17,7 +17,7 @@ export const deleteTask = (taskId) => {
 		.catch(error => console.error('There was an error trying to delete your project', error))
 }
 
-export const create = (status) => {
+export const create = status => {
 	const taskName = document.getElementById('taskName').value
 	const projectName = document.getElementById('projectSelect').value
 	const options = document.querySelectorAll('option')

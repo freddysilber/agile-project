@@ -5,10 +5,7 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
-		project = Project.create(
-			name: params[:name], 
-			status: params[:status]
-		)
+		project = Project.create(project_params)
 		render json: ProjectSerializer.new(project)
 	end
 

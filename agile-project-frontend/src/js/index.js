@@ -14,11 +14,11 @@ window.addEventListener('DOMContentLoaded', () => {
 	})
 })
 
-const createProjectCards = (data) => {
+const createProjectCards = data => {
 	return data.map(project => new Project.Project(project.id, project.attributes.name, project.attributes.status))
 }
 
-window.handleSelectProject = (event) => {
+window.handleSelectProject = event => {
 	Util.buildBoard()
 	ProjectView.clearProjectCardBackgrounds()
 	let projectCard = event.target
@@ -46,11 +46,9 @@ window.handleDragLeave = event => {
 	event.preventDefault()
 }
 
-window.drag = (event) => {
-	event.dataTransfer.setData('text', event.target.id)
-}
+window.drag = event => event.dataTransfer.setData('text', event.target.id)
 
-window.drop = (event) => {
+window.drop = event => {
 	event.preventDefault()
 	let column = event.srcElement
 	const data = event.dataTransfer.getData('text') // TASK ID
@@ -62,13 +60,9 @@ window.drop = (event) => {
 	updateTaskStatus(data, columnId)
 }
 
-window.handleCreateProject = () => {
-	handleNewProject()
-}
+window.handleCreateProject = () => handleNewProject()
 
-const handleNewProject = () => {
-	elements.masterContainer.insertAdjacentHTML('beforebegin', newProjectModal)
-}
+const handleNewProject = () => elements.masterContainer.insertAdjacentHTML('beforebegin', newProjectModal)
 
 window.submitProject = () => { // Create project
 	const projectName = document.getElementById('projectName').value
@@ -77,34 +71,30 @@ window.submitProject = () => { // Create project
 	handleCloseModal()
 }
 
-window.editProject = (projectId) => { // edit project
+window.editProject = projectId => { // edit project
 	const projectName = document.getElementById('projectName').value
 	Project.editProject(projectId, projectName)
 	handleCloseModal()
 }
 
-window.handleCloseModal = () => {
-	document.getElementById('myModal').remove()
-}
+window.handleCloseModal = () => document.getElementById('myModal').remove()
 
-const updateTaskStatus = (taskId, status) => {
-	Task.updateStatus(taskId, status)
-}
+const updateTaskStatus = (taskId, status) => Task.updateStatus(taskId, status)
 
-window.handleDeleteProject = (event) => {
+window.handleDeleteProject = event => {
 	event.stopPropagation()
 	Project.deleteProj(event.target.parentNode.id)
 	event.target.parentNode.remove()
 }
 
-window.handleDeleteTask = (event) => {
+window.handleDeleteTask = event => {
 	event.stopPropagation()
 	const taskId = event.target.parentNode.id
 	deleteTask(taskId)
 	event.target.parentNode.remove()
 }
 
-window.handleSelectTask = (event) => {
+window.handleSelectTask = event => {
 	TaskView.removePreviousTaskEdit()
 	TaskView.clearTaskCardBackgrounds()
 	let taskCard = event.target
@@ -115,30 +105,27 @@ window.handleSelectTask = (event) => {
 	Task.getTask(taskCard.id)
 }
 
-window.handleUpdateTask = (event) => {
+window.handleUpdateTask = event => {
 	const taskId = event.target.previousElementSibling.id
 	const newTaskName = event.target.previousElementSibling.value
 	Task.update(taskId, newTaskName)
 }
 
-window.handleEditProject = (event) => {
+window.handleEditProject = event => {
 	const projectName = event.srcElement.nextElementSibling.textContent.split(':')[1]
 	const projectId = event.srcElement.parentNode.id
 	elements.masterContainer.insertAdjacentHTML('beforebegin', editProjectModal(projectId, projectName))
 }
 
-window.handleCreateTask = (event) => {
+window.handleCreateTask = event => {
 	const status = event.target.id
-	Project.all().then(data => {
-		elements.masterContainer.insertAdjacentHTML('beforebegin', TaskView.createTaskModal(status, data))
-	})
+	Project.all()
+		.then(data => elements.masterContainer.insertAdjacentHTML('beforebegin', TaskView.createTaskModal(status, data)))
 }
 
-window.submitTask = (event) => {
+window.submitTask = event => {
 	Task.create(event.target.id)
 	handleCloseModal()
 }
-
-window.handleSortByStatus = () => { // Toggles sort by status feature implemented on final project review part 1
-	Util.SortProjectsByStatus() // call util to hanlde sorting
-}
+// Toggles sort by status feature implemented on final project review part 1
+window.handleSortByStatus = () => Util.SortProjectsByStatus()

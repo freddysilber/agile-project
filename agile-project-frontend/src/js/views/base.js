@@ -7,7 +7,7 @@ export const elements = {
 	columns: document.querySelectorAll('.column')
 }
 
-export const getColumn = (status) => {
+export const getColumn = status => {
 	return `
 		<div id="${status}" class="column" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="handleDragLeave(event)">
 			<i id="${status}" class="far fa-plus-square fa-lg createTaskIcon" onclick="handleCreateTask(event)"></i>

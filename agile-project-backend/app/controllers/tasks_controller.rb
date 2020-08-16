@@ -5,11 +5,7 @@ class TasksController < ApplicationController
 	end
 
 	def create
-		task = Task.create(
-			name: params[:name],
-			status: params[:status],
-			project_id: params[:project_id]
-		)
+		task = Task.create(task_params)
 		render json: TaskSerializer.new(task)
 	end
 
