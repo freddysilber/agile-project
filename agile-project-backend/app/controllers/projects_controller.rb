@@ -13,9 +13,7 @@ class ProjectsController < ApplicationController
 	end
 
 	def update
-		project = Project.find(
-			params[:id]
-		)
+		project = Project.find(params[:id])
 		unless project.nil?
 			project.update(project_params)
 			render json: ProjectSerializer.new(project)
@@ -25,16 +23,12 @@ class ProjectsController < ApplicationController
 	end
 
 	def show
-		project = Project.find(
-			params[:id]
-		)
+		project = Project.find(params[:id])
 		render json: ProjectSerializer.new(project)
 	end
 
 	def destroy
-		project = Project.find(
-			params[:id]
-		)
+		project = Project.find(params[:id])
 		unless project.nil?
 			project.destroy
 			render json: ProjectSerializer.new(project)

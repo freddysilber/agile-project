@@ -11,7 +11,5 @@ export const renderProjectCard = (id, name, status) => {
 
 export const clearProjectCardBackgrounds = () => {
 	const cards = document.querySelectorAll('.projectCard')
-	cards.forEach(card => {
-		card.style.background = ''
-	})
+	cards.forEach(card => card.style.background = '')
 }

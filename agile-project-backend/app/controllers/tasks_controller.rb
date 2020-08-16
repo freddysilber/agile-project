@@ -14,9 +14,7 @@ class TasksController < ApplicationController
 	end
 
 	def update
-		task = Task.find(
-			params[:id]
-		)
+		task = Task.find(params[:id])
 		unless task.nil?
 			task.update(task_params)
 			render json: TaskSerializer.new(task)
@@ -26,16 +24,12 @@ class TasksController < ApplicationController
 	end
 
 	def show
-		task = Task.find(
-			params[:id]
-		)
+		task = Task.find(params[:id])
 		render json: TaskSerializer.new(task)
 	end
 
 	def destroy
-		task = Task.find(
-			params[:id]
-		)
+		task = Task.find(params[:id])
 		unless task.nil?
 			task.destroy
 			render json: TaskSerializer.new(task)

@@ -1,5 +1,3 @@
-import { projectsUrl } from "../config"
-
 export const getTaskCard = (id, name, status) => {
 	return `
 		<div id="${id}" class="taskCard" draggable="true" ondragstart="drag(event)" onclick="handleSelectTask(event)">
@@ -56,7 +54,5 @@ export const removePreviousTaskEdit = () => {
 
 export const clearTaskCardBackgrounds = () => {
 	const cards = document.querySelectorAll('.taskCard')
-	cards.forEach(card => {
-		card.style.background = ''
-	})
+	cards.forEach(card => card.style.background = '')
 }

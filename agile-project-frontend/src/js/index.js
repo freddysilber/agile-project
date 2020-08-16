@@ -36,12 +36,12 @@ window.handleSelectProject = (event) => {
 		.catch(error => console.error('There was an err trying to get ur project', error))
 }
 
-window.allowDrop = (event) => {
+window.allowDrop = event => {
 	event.srcElement.style.background = '#F3F3F3'
 	event.preventDefault()
 }
 
-window.handleDragLeave = (event) => {
+window.handleDragLeave = event => {
 	event.srcElement.style.background = ''
 	event.preventDefault()
 }

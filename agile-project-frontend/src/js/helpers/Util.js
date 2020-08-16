@@ -3,12 +3,8 @@ import { taskStatuses } from '../config'
 
 export const buildBoard = () => {
 	const columns = document.querySelectorAll('.column')
-	columns.forEach(column => {
-		column.remove()
-	})
-	taskStatuses.forEach(status => {
-		elements.kanban.insertAdjacentHTML('beforeend', getColumn(status))
-	})
+	columns.forEach(column => column.remove())
+	taskStatuses.forEach(status => elements.kanban.insertAdjacentHTML('beforeend', getColumn(status)))
 }
 
 export const SortProjectsByStatus = () => {
@@ -26,10 +22,6 @@ export const SortProjectsByStatus = () => {
 		}
 		return 0
 	})
-	projectCards.forEach(card => {
-		card.remove()
-	})
-	projects.forEach(p => {
-		projectNav.insertAdjacentElement('beforeend', p)
-	})
+	projectCards.forEach(card => card.remove())
+	projects.forEach(p => projectNav.insertAdjacentElement('beforeend', p))
 }

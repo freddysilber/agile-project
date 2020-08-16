@@ -9,7 +9,7 @@ export class Project {
 	}
 }
 
-export const deleteProj = (projectId) => {
+export const deleteProj = projectId => {
 	fetch(`${projectsUrl}/${projectId}`, {
 		method: 'DELETE'
 	})
@@ -17,13 +17,9 @@ export const deleteProj = (projectId) => {
 		.catch(error => console.error('There was an error trying to delete your project', error))
 }
 
-export const all = async () => {
-	return await (await fetch(projectsUrl)).json()
-}
+export const all = async () => await (await fetch(projectsUrl)).json()
 
-export const getProject = async (projectId) => {
-	return await (await fetch(`${projectsUrl}/${projectId}`)).json()
-}
+export const getProject = async (projectId) => await (await fetch(`${projectsUrl}/${projectId}`)).json()
 
 export const create = (name, nav) => {
 	fetch(projectsUrl, {
