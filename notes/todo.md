@@ -18,7 +18,7 @@
 3. field for type??
 4. field for time entry (hours)
 5. CRUD
-	a. C
+	<!-- a. C -->
 	<!-- b. R -->
 	<!-- c. U -->
 	<!-- d. D -->

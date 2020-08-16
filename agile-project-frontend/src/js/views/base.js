@@ -11,7 +11,7 @@ export const getColumn = status => {
 	return `
 		<div id="${status}" class="column" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="handleDragLeave(event)">
 			<i id="${status}" class="far fa-plus-square fa-lg createTaskIcon" onclick="handleCreateTask(event)"></i>
-			<h3 class="columnTitle"><em><u>${status}</u></em></h3>
+			<h3 class="columnTitle"><em>${status}</em></h3>
 		</div>
 	`
 }
